@@ -7,6 +7,7 @@ package Modelo;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import org.json.simple.JSONObject;
 
 
 /**
@@ -14,7 +15,7 @@ import javax.persistence.Entity;
  * @author Maycon
  */
 @Entity
-public class Pessoa implements Serializable{
+public class Pessoa extends ObjetoBase implements Serializable{
     
     String nome;
     String CPF;
@@ -87,6 +88,36 @@ public class Pessoa implements Serializable{
 
     public void setNumMatricula(String numMatricula) {
         this.numMatricula = numMatricula;
+    }
+
+    @Override
+    public ObjetoBase toObjeto(JSONObject jsonfile) {
+        this.setNome((String) jsonfile.get("nome"));
+        this.setCPF((String) jsonfile.get("CPF"));
+        this.setRG((String) jsonfile.get("RG"));
+        this.setCidade((String) jsonfile.get("cidade"));
+        this.setEmail((String) jsonfile.get("email"));
+        this.setTelefone((String) jsonfile.get("telefone"));
+        this.setNumMatricula((String) jsonfile.get("nummatricula"));
+        
+        return this;
+    }
+
+    @Override
+    public JSONObject toJSONObject() {
+        
+        JSONObject jsonfile = new JSONObject();
+        
+        jsonfile.put("nome", this.getNome());
+        jsonfile.put("CPF", this.getCPF());
+        jsonfile.put("RG", this.getRG());
+        jsonfile.put("cidade", this.getCidade());
+        jsonfile.put("email", this.getEmail());
+        jsonfile.put("telefone", this.getTelefone());
+        jsonfile.put("nummatricula", this.getNumMatricula());
+        
+        return jsonfile;
+        
     }
     
     

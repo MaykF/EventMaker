@@ -7,13 +7,14 @@ package Modelo;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import org.json.simple.JSONObject;
 
 /**
  *
  * @author Maycon
  */
 @Entity
-public class Usuario implements Serializable{
+public class Usuario extends ObjetoBase implements Serializable{
     
     String nome;
     String login;
@@ -51,6 +52,31 @@ public class Usuario implements Serializable{
 
     public void setIsadmin(boolean isadmin) {
         this.isadmin = isadmin;
+    }
+
+    @Override
+    public ObjetoBase toObjeto(JSONObject jsonfile) {
+        
+        this.setNome((String) jsonfile.get("nome"));
+        this.setLogin((String) jsonfile.get("login"));
+        this.setSenha((String) jsonfile.get("senha"));
+        this.setIsadmin((boolean) jsonfile.get("isadmin"));
+        
+        return this;
+    }
+
+    @Override
+    public JSONObject toJSONObject() {
+        
+        JSONObject jsonfile = new JSONObject();
+        
+        jsonfile.put("nome", this.getNome());
+        jsonfile.put("login", this.getLogin());
+        jsonfile.put("senha", this.getSenha());
+        jsonfile.put("isadmin", this.isIsadmin());
+        
+        return jsonfile;
+        
     }
     
     
