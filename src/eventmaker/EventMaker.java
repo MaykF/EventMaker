@@ -5,6 +5,11 @@
  */
 package eventmaker;
 
+import Persistencia.FabricaJPA;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 /**
  *
  * @author Maycon
@@ -15,7 +20,10 @@ public class EventMaker {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        EntityManagerFactory fabrica = Persistence.createEntityManagerFactory("EventMakerPU");
+        EntityManager undPersist = FabricaJPA.getManager();
+        
     }
     
 }
