@@ -6,7 +6,9 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import org.json.simple.JSONObject;
 
 
@@ -17,14 +19,16 @@ import org.json.simple.JSONObject;
 @Entity
 public class Pessoa extends ObjetoBase implements Serializable{
     
-    String nome;
-    String CPF;
-    String RG;
-    String endereco;
-    String cidade;
-    String telefone;
-    String email;
-    String numMatricula;
+    private String nome;
+    private String CPF;
+    private String RG;
+    private String endereco;
+    private String cidade;
+    private String telefone;
+    private String email;
+    private String numMatricula;
+    @OneToMany(mappedBy = "pessoa")
+    private List<Inscricao> inscricoes;
 
     public String getNome() {
         return nome;

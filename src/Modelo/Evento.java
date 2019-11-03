@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import org.json.simple.JSONObject;
 import java.util.*;
+import javax.persistence.OneToMany;
 
 
 /**
@@ -18,12 +19,14 @@ import java.util.*;
 @Entity
 public class Evento extends ObjetoBase implements Serializable{
     
-    String nome;
-    String descricao;
-    int capacidade;
-    String endereco;
-    GregorianCalendar inicio;
-    GregorianCalendar termino;
+    private String nome;
+    private String descricao;
+    private int capacidade;
+    private String endereco;
+    private GregorianCalendar inicio;
+    private GregorianCalendar termino;
+    @OneToMany(mappedBy = "evento")
+    private List<Inscricao> inscricoes;
 
     public String getNome() {
         return nome;

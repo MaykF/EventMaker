@@ -12,6 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import org.json.simple.JSONObject;
 
 /**
@@ -21,10 +22,12 @@ import org.json.simple.JSONObject;
 @Entity
 public class Usuario extends ObjetoBase implements Serializable{
     
-    String nome;
-    String login;
-    String senha;
-    boolean isadmin;
+    private String nome;
+    private String login;
+    private String senha;
+    private boolean isadmin;
+    @OneToOne(mappedBy = "usuario")
+    private Inscricao inscricao;
 
     
     public String getNome() {
