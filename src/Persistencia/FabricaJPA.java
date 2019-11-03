@@ -16,8 +16,7 @@ import javax.persistence.Persistence;
 public class FabricaJPA {
 
     private static EntityManagerFactory Fabrica = null;
-    private static final String nomeUndPerstencia = "EventMakerPU";
-
+    private static final String nomeUndPerstencia = "eventmakerpu";
     private FabricaJPA() {
         Fabrica = Persistence.createEntityManagerFactory(nomeUndPerstencia);
     }
