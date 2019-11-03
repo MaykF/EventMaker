@@ -6,8 +6,6 @@
 package eventmaker;
 
 import Controller.ControllerUsuario;
-import Modelo.Usuario;
-import Visao.TelaPrincipal;
 import Persistencia.FabricaJPA;
 import Visao.TelaLogin;
 import javax.persistence.EntityManager;
@@ -32,8 +30,7 @@ public class EventMaker {
         
         EntityManagerFactory fabrica = Persistence.createEntityManagerFactory("eventmakerpu");
         EntityManager undPersist = FabricaJPA.getManager();
-        
-        
+                
         
         /* RODAR PARA INSERIR USUARIO
         JSONObject jsonfile = new JSONObject();
