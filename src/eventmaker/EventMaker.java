@@ -5,6 +5,7 @@
  */
 package eventmaker;
 
+import Visao.TelaPrincipal;
 import Persistencia.FabricaJPA;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

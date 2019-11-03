@@ -8,6 +8,8 @@ package Modelo;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import org.json.simple.JSONObject;
+import java.util.*;
+
 
 /**
  *
@@ -20,7 +22,8 @@ public class Evento extends ObjetoBase implements Serializable{
     String descricao;
     int capacidade;
     String endereco;
-    /// DATA E HORA INICIO E TERMINO
+    GregorianCalendar inicio;
+    GregorianCalendar termino;
 
     public String getNome() {
         return nome;
@@ -54,12 +57,32 @@ public class Evento extends ObjetoBase implements Serializable{
         this.endereco = endereco;
     }   
 
+    public GregorianCalendar getInicio() {
+        return inicio;
+    }
+
+    public void setInicio(GregorianCalendar inicio) {
+        this.inicio = inicio;
+    }
+
+    public GregorianCalendar getTermino() {
+        return termino;
+    }
+
+    public void setTermino(GregorianCalendar termino) {
+        this.termino = termino;
+    }
+
+
+
     public ObjetoBase toObjeto(JSONObject jsonfile) {
         
         this.setNome((String) jsonfile.get("nome"));
         this.setDescricao((String) jsonfile.get("descricao"));
         this.setCapacidade((int) jsonfile.get("capacidade"));
         this.setEndereco((String) jsonfile.get("endereco"));
+        this.setInicio((GregorianCalendar) jsonfile.get("inicio"));
+        this.setTermino((GregorianCalendar) jsonfile.get("termino"));
         
         return this;
     }
@@ -73,6 +96,8 @@ public class Evento extends ObjetoBase implements Serializable{
         jsonfile.put("descricao", this.getDescricao());
         jsonfile.put("capacidade", this.getCapacidade());
         jsonfile.put("enredeco", this.getEndereco());
+        jsonfile.put("inicio", this.getInicio());
+        jsonfile.put("termino", this.getTermino());
         
         return jsonfile;
     }
