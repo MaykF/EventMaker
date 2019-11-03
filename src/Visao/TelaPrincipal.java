@@ -8,12 +8,19 @@ package Visao;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.MenuElement;
+import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicMenuBarUI;
 
 /**
@@ -25,6 +32,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form TelaPrincipal
      */
+    private static final ScheduledExecutorService background = Executors.newSingleThreadScheduledExecutor();
+    
     public TelaPrincipal() {
         initComponents();
         customizeMenuBar(jMenuBar1);
@@ -36,6 +45,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         customizeMenuBar(jMenuBar1);
         this.setLocationRelativeTo(null);
         jLabelUsuarioLogado.setText(usuarioLogin);  // SETA O USUARIO LOGADO NO JLABEL CENTRAL INFERIOR
+        this.mostrarHora();
     }
 
     /**
@@ -51,6 +61,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabelUsuarioLogado = new javax.swing.JLabel();
+        jLabelHora = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -77,6 +88,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabelUsuarioLogado.setForeground(new java.awt.Color(51, 102, 255));
         jLabelUsuarioLogado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        jLabelHora.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelHora.setForeground(new java.awt.Color(51, 102, 255));
+        jLabelHora.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -84,22 +99,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(359, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabelUsuarioLogado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(349, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
+                        .addComponent(jLabelHora, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(219, Short.MAX_VALUE)
+                .addContainerGap(203, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, Short.MAX_VALUE)
                 .addComponent(jLabelUsuarioLogado, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(jLabelHora, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(jLabel2))
         );
@@ -189,12 +207,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         }
     }
-}
+    }
 
-private void changeComponentColors(Component comp) {
-    comp.setBackground(Color.gray);
-    comp.setForeground(Color.white);
-}
+    private void changeComponentColors(Component comp) {
+        comp.setBackground(Color.gray);
+        comp.setForeground(Color.white);
+    }
+    
+    public void mostrarHora() { 
+        // método de chamada para atualização da hora
+        HorarioUtil horarioUtil = new HorarioUtil(jLabelHora);
+        horarioUtil.mostrarData(true);
+        Thread thHora = horarioUtil;
+        thHora.start();
+    }
     
     /**
      * @param args the command line arguments
@@ -227,6 +253,7 @@ private void changeComponentColors(Component comp) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaPrincipal().setVisible(true);
+                
             }
         });
     }
@@ -234,6 +261,7 @@ private void changeComponentColors(Component comp) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabelHora;
     private javax.swing.JLabel jLabelUsuarioLogado;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
