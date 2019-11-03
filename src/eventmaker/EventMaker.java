@@ -5,11 +5,15 @@
  */
 package eventmaker;
 
+import Controller.ControllerUsuario;
+import Modelo.Usuario;
 import Visao.TelaPrincipal;
 import Persistencia.FabricaJPA;
+import Visao.TelaLogin;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -22,12 +26,25 @@ public class EventMaker {
      */
     public static void main(String[] args) {
         
-        TelaPrincipal tela = new TelaPrincipal();
-        tela.show();
+        TelaLogin telalogin = new TelaLogin();
+        telalogin.show();
+        
         
         EntityManagerFactory fabrica = Persistence.createEntityManagerFactory("eventmakerpu");
         EntityManager undPersist = FabricaJPA.getManager();
         
+        
+        
+        /* RODAR PARA INSERIR USUARIO
+        JSONObject jsonfile = new JSONObject();
+        jsonfile.put("nome", "Maycon");
+        jsonfile.put("login", "mayk");
+        jsonfile.put("senha", "a");
+        jsonfile.put("isadmin", true);
+        
+        ControllerUsuario C = new ControllerUsuario();
+        C.Salvar(jsonfile);
+        */
     }
     
 }
