@@ -21,8 +21,11 @@ public class EventMaker {
      */
     public static void main(String[] args) {
         
-        EntityManagerFactory fabrica = Persistence.createEntityManagerFactory("EventMakerPU");
-        EntityManager undPersist = FabricaJPA.getManager();
+        TelaPrincipal tela = new TelaPrincipal();
+        tela.show();
+        
+        //EntityManagerFactory fabrica = Persistence.createEntityManagerFactory("EventMakerPU");
+        //EntityManager undPersist = FabricaJPA.getManager();
         
     }
     

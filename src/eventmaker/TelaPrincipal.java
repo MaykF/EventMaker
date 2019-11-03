@@ -5,6 +5,17 @@
  */
 package eventmaker;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import javax.swing.JComponent;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.MenuElement;
+import javax.swing.plaf.basic.BasicMenuBarUI;
+
 /**
  *
  * @author Maycon
@@ -16,6 +27,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
+        customizeMenuBar(jMenuBar1);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -27,10 +40,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -38,14 +55,51 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setToolTipText("EventMaker");
+        jPanel1.setName("EventMaker"); // NOI18N
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/EventMaker.png"))); // NOI18N
 
+        jLabel2.setForeground(new java.awt.Color(51, 153, 255));
         jLabel2.setText("Developed by Maycon and Rodrigo");
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(359, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap(349, Short.MAX_VALUE))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(219, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 259, Short.MAX_VALUE)
+                .addComponent(jLabel2))
+        );
+
         jMenuBar1.setBackground(new java.awt.Color(51, 51, 255));
-        jMenuBar1.setBorder(null);
+        jMenuBar1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jMenuBar1.setForeground(new java.awt.Color(153, 153, 153));
 
         jMenu1.setText("Cadastros");
+
+        jMenuItem1.setText("Usuarios");
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Pessoas");
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setText("Eventos");
+        jMenu1.add(jMenuItem3);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Manutenção");
@@ -63,26 +117,62 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(365, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap(343, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(239, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 241, Short.MAX_VALUE)
-                .addComponent(jLabel2))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        jPanel1.getAccessibleContext().setAccessibleName("EventMaker");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void customizeMenuBar(JMenuBar menuBar) {
+
+    menuBar.setUI(new BasicMenuBarUI() {
+
+        public void paint(Graphics g, JComponent c) {
+            g.setColor(Color.gray);
+            g.fillRect(0, 0, c.getWidth(), c.getHeight());
+        }
+
+    });
+
+    MenuElement[] menus = menuBar.getSubElements();
+
+    for (MenuElement menuElement : menus) {
+
+        JMenu menu = (JMenu) menuElement.getComponent();
+        changeComponentColors(menu);
+        menu.setOpaque(true);
+
+        MenuElement[] menuElements = menu.getSubElements();
+
+        for (MenuElement popupMenuElement : menuElements) {
+
+            JPopupMenu popupMenu = (JPopupMenu) popupMenuElement.getComponent();
+            popupMenu.setBorder(null);
+
+            MenuElement[] menuItens = popupMenuElement.getSubElements();
+
+            for (MenuElement menuItemElement : menuItens) {
+
+                JMenuItem menuItem = (JMenuItem) menuItemElement.getComponent();
+                changeComponentColors(menuItem);
+                menuItem.setOpaque(true);
+
+            }
+        }
+    }
+}
+
+private void changeComponentColors(Component comp) {
+    comp.setBackground(Color.gray);
+    comp.setForeground(Color.white);
+}
+    
     /**
      * @param args the command line arguments
      */
@@ -126,5 +216,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
