@@ -1,4 +1,10 @@
 package Visao;
+
+import Controller.ControllerPessoa;
+import jdk.nashorn.api.scripting.JSObject;
+import oracle.jrockit.jfr.tools.ConCatRepository;
+import org.json.simple.JSONObject;
+
 public class CadPessoa extends javax.swing.JFrame {
 
     public CadPessoa() {
@@ -37,7 +43,7 @@ public class CadPessoa extends javax.swing.JFrame {
         Cancelar = new javax.swing.JButton();
         Excluir = new javax.swing.JButton();
         Editar = new javax.swing.JButton();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+        CPF = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -80,13 +86,13 @@ public class CadPessoa extends javax.swing.JFrame {
         Editar.setText("Editar");
 
         try {
-            jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            CPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+        CPF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jFormattedTextField2KeyTyped(evt);
+                CPFKeyTyped(evt);
             }
         });
 
@@ -130,7 +136,7 @@ public class CadPessoa extends javax.swing.JFrame {
                                     .addComponent(jLabel6)
                                     .addComponent(Cidade)
                                     .addComponent(Matricula, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                                    .addComponent(jFormattedTextField2)))))
+                                    .addComponent(CPF)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(Novo)
                         .addGap(18, 18, 18)
@@ -155,7 +161,7 @@ public class CadPessoa extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -201,14 +207,25 @@ public class CadPessoa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
+        ControllerPessoa pessoa =  new ControllerPessoa();
+        JSONObject json =  new JSONObject();
+        json.put("nome", Nome.getText());
+        json.put("CPF", CPF.getText());
+        json.put("RG", RG.getText());
+        json.put("Endereço", End.getText());
+        json.put("Cidade", Cidade.getText());
+        json.put("Telefone", Tel.getText());
+        json.put("Email", Email.getText());
+        json.put("matricula", Matricula.getText());
+        pessoa.Salvar(json);
         
     }//GEN-LAST:event_SalvarActionPerformed
 
-    private void jFormattedTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextField2KeyTyped
+    private void CPFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CPFKeyTyped
         if (!Character.isDigit(evt.getKeyChar())) {
             evt.consume();
         }
-    }//GEN-LAST:event_jFormattedTextField2KeyTyped
+    }//GEN-LAST:event_CPFKeyTyped
 
     /**
      * @param args the command line arguments
@@ -250,6 +267,7 @@ public class CadPessoa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFormattedTextField CPF;
     private javax.swing.JButton Cancelar;
     private javax.swing.JTextField Cidade;
     private javax.swing.JButton Editar;
@@ -262,7 +280,6 @@ public class CadPessoa extends javax.swing.JFrame {
     private javax.swing.JTextField RG;
     private javax.swing.JButton Salvar;
     private javax.swing.JTextField Tel;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
