@@ -218,7 +218,6 @@ public class CadPessoa extends javax.swing.JFrame {
         json.put("Email", Email.getText());
         json.put("matricula", Matricula.getText());
         pessoa.Salvar(json);
-        
     }//GEN-LAST:event_SalvarActionPerformed
 
     private void CPFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CPFKeyTyped
