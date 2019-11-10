@@ -209,14 +209,15 @@ public class CadPessoa extends javax.swing.JFrame {
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
         ControllerPessoa pessoa =  new ControllerPessoa();
         JSONObject json =  new JSONObject();
-        json.put("nome", Nome.getText());
+        
         json.put("CPF", CPF.getText());
         json.put("RG", RG.getText());
-        json.put("Endereço", End.getText());
-        json.put("Cidade", Cidade.getText());
-        json.put("Telefone", Tel.getText());
-        json.put("Email", Email.getText());
-        json.put("matricula", Matricula.getText());
+        json.put("cidade", Cidade.getText());
+        json.put("email", Email.getText());
+        json.put("endereco", End.getText());
+        json.put("nome", Nome.getText());
+        json.put("nummatricula", Matricula.getText());
+        json.put("telefone", Tel.getText());
         pessoa.Salvar(json);
     }//GEN-LAST:event_SalvarActionPerformed
 

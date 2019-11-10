@@ -101,6 +101,7 @@ public class Pessoa extends ObjetoBase implements Serializable{
         this.setRG((String) jsonfile.get("RG"));
         this.setCidade((String) jsonfile.get("cidade"));
         this.setEmail((String) jsonfile.get("email"));
+        this.setEndereco((String) jsonfile.get("endereco"));
         this.setTelefone((String) jsonfile.get("telefone"));
         this.setNumMatricula((String) jsonfile.get("nummatricula"));
         
@@ -117,6 +118,7 @@ public class Pessoa extends ObjetoBase implements Serializable{
         jsonfile.put("RG", this.getRG());
         jsonfile.put("cidade", this.getCidade());
         jsonfile.put("email", this.getEmail());
+        jsonfile.put("endereco", this.getEndereco());
         jsonfile.put("telefone", this.getTelefone());
         jsonfile.put("nummatricula", this.getNumMatricula());
         
