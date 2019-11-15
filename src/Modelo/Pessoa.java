@@ -96,7 +96,7 @@ public class Pessoa extends ObjetoBase implements Serializable{
 
     @Override
     public ObjetoBase toObjeto(JSONObject jsonfile) {
-        this.setId((int) jsonfile.get("id"));
+        //this.setId((int) jsonfile.get("id"));
         this.setNome((String) jsonfile.get("nome"));
         this.setCPF((String) jsonfile.get("CPF"));
         this.setRG((String) jsonfile.get("RG"));
