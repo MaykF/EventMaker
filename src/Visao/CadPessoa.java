@@ -192,6 +192,11 @@ public class CadPessoa extends javax.swing.JFrame {
         Excluir.setText("Excluir");
 
         Editar.setText("Editar");
+        Editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditarActionPerformed(evt);
+            }
+        });
 
         try {
             CPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -456,6 +461,24 @@ public class CadPessoa extends javax.swing.JFrame {
         Editar(false);
         LimparTela();
     }//GEN-LAST:event_CancelarActionPerformed
+
+    private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
+        this.visaoController.trocar(false);
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        JSONObject dados = new JSONObject();
+        dados = pessoa.Recuperar(Integer.parseInt(String.valueOf(modelo.getValueAt(jTable1.getSelectedRow(),1))));
+        atualizando=true;
+        Nome.setText(modelo.getValueAt(jTable1.getSelectedRow(),0).toString());
+        CPF.setText(modelo.getValueAt(jTable1.getSelectedRow(),2).toString());
+        Id.setText(modelo.getValueAt(jTable1.getSelectedRow(),1).toString());
+        RG.setText(dados.get("RG").toString());
+        End.setText(dados.get("endereco").toString());
+        Cidade.setText(dados.get("cidade").toString());
+        Tel.setText(dados.get("telefone").toString());
+        Email.setText(dados.get("email").toString());
+        Matricula.setText(dados.get("nummatricula").toString());
+        Editar(true);
+    }//GEN-LAST:event_EditarActionPerformed
 
     /**
      * @param args the command line arguments
