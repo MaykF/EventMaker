@@ -96,6 +96,7 @@ public class Pessoa extends ObjetoBase implements Serializable{
 
     @Override
     public ObjetoBase toObjeto(JSONObject jsonfile) {
+        this.setId(0);
         this.setNome((String) jsonfile.get("nome"));
         this.setCPF((String) jsonfile.get("CPF"));
         this.setRG((String) jsonfile.get("RG"));
@@ -112,7 +113,7 @@ public class Pessoa extends ObjetoBase implements Serializable{
     public JSONObject toJSONObject() {
         
         JSONObject jsonfile = new JSONObject();
-        
+        jsonfile.put("id", 0);
         jsonfile.put("nome", this.getNome());
         jsonfile.put("CPF", this.getCPF());
         jsonfile.put("RG", this.getRG());
