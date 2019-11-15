@@ -25,7 +25,7 @@ public class EventMaker {
     public static void main(String[] args) {
         
         TelaLogin telalogin = new TelaLogin();
-        telalogin.show();
+        //telalogin.setVisible(true);
         
         
         EntityManagerFactory fabrica = Persistence.createEntityManagerFactory("eventmakerpu");
