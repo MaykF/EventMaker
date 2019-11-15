@@ -8,6 +8,7 @@ package Controller;
 import Modelo.ObjetoBase;
 import Persistencia.PersistenciaJPA;
 import java.util.List;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -48,22 +49,20 @@ public abstract class ControllerBase {
             return null;
     }
     
-    public JSONObject RecuperarTodos(){
+    public JSONArray RecuperarTodos(){
         
         List<ObjetoBase> dados;
-        //String[][] Stringretorno = new String[50][50];
-        JSONObject jsonretorno = new JSONObject();
+        //JSONObject jsonretorno = new JSONObject();
+        JSONArray jsonAux = new JSONArray();
         
         PersistenciaJPA<ObjetoBase> DAO = new PersistenciaJPA(classeObjetoControle);
         dados = DAO.recuperarTodos();
         
         for(int i = 0; i < dados.size(); i++){
             //Stringretorno[i] = dados.get(i).toStringVetor();
-            jsonretorno.put(i, dados.get(i).toJSONObject()); // i -> INDICE NUMERO DO REGISTRO RETORNO // objeto -> segundo parametro
-            
+            jsonAux.add(dados.get(i).toJSONObject()); // i -> INDICE NUMERO DO REGISTRO RETORNO // objeto -> segundo parametro
         }
-
-        return jsonretorno;
+        return jsonAux;
     }
     
     public boolean Excluir(int codigo){
