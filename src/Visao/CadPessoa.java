@@ -3,6 +3,8 @@ package Visao;
 import Controller.ControllerPessoa;
 import java.util.Arrays;
 import java.util.Iterator;
+import javax.persistence.RollbackException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import jdk.nashorn.api.scripting.JSObject;
 import oracle.jrockit.jfr.tools.ConCatRepository;
@@ -190,6 +192,11 @@ public class CadPessoa extends javax.swing.JFrame {
         });
 
         Excluir.setText("Excluir");
+        Excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExcluirActionPerformed(evt);
+            }
+        });
 
         Editar.setText("Editar");
         Editar.addActionListener(new java.awt.event.ActionListener() {
@@ -388,7 +395,11 @@ public class CadPessoa extends javax.swing.JFrame {
             json.put("telefone", Tel.getText());
             pessoa.Salvar(json);
         }
+        atualizando = false;
         LimparTela();
+        Editar(false);
+        this.visaoController.trocar(true);
+        this.preencher();
     }//GEN-LAST:event_SalvarActionPerformed
 
     private void CPFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CPFKeyTyped
@@ -479,6 +490,17 @@ public class CadPessoa extends javax.swing.JFrame {
         Matricula.setText(dados.get("nummatricula").toString());
         Editar(true);
     }//GEN-LAST:event_EditarActionPerformed
+
+    private void ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        int codigo = Integer.parseInt(modelo.getValueAt(jTable1.getSelectedRow(), 1).toString());
+        try {
+            pessoa.Excluir(codigo);
+            modelo.removeRow(jTable1.getSelectedRow());
+        } catch (RollbackException ex) {
+            JOptionPane.showMessageDialog(this,"Pessoa selecionada não pode ser removida.");
+        }
+    }//GEN-LAST:event_ExcluirActionPerformed
 
     /**
      * @param args the command line arguments
