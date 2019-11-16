@@ -3,6 +3,7 @@ package Visao;
 import Controller.ControllerUsuario;
 import java.util.Arrays;
 import java.util.Iterator;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -17,6 +18,7 @@ public class CadUsuario extends javax.swing.JFrame {
         initComponents();
         this.visaoController = new VisaoController(Novo, Salvar, Cancelar, Editar, Excluir);
         this.setLocationRelativeTo(null);
+        this.preencher();
     }
 
     public void preencher() {
@@ -41,8 +43,42 @@ public class CadUsuario extends javax.swing.JFrame {
             jTable1.setRowSelectionInterval(0, 0);
         }
     }
-    private void LimpaTela(){
-        
+    private void LimparTela(){
+        Id.setText("");
+        NomeUsu.setText("");
+        Login.setText("");
+        Senha.setText("");
+        Adm.setSelected(false);
+    }
+    
+    private void Editar(boolean edt) {
+        NomeUsu.setEditable(edt);
+        Login.setEnabled(edt);
+        Senha.setEnabled(edt);
+        Adm.setEnabled(edt);
+    }
+    private void Salvar(){
+        if (atualizando) {
+            JSONObject json = new JSONObject();
+            json.put("nome", NomeUsu.getText());
+            json.put("login", Login.getText());
+            json.put("senha", ControllerUsuario.CriptografarSenha(Senha.getText()));
+            json.put("isadmin", Adm.isSelected());
+            usuario.Salvar(json);
+        } else {
+            JSONObject json = new JSONObject();
+            json.put("id", 0);
+            json.put("nome", NomeUsu.getText());
+            json.put("login", Login.getText());
+            json.put("senha", ControllerUsuario.CriptografarSenha(Senha.getText()));
+            json.put("isadmin", Adm.isSelected());
+            usuario.Salvar(json);
+        }
+        atualizando = false;
+        LimparTela();
+        Editar(false);
+        this.visaoController.trocar(true);
+        this.preencher();
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -68,8 +104,15 @@ public class CadUsuario extends javax.swing.JFrame {
         Editar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setText("codigo");
+
+        Id.setEditable(false);
 
         jLabel2.setText("Nome");
 
@@ -103,10 +146,25 @@ public class CadUsuario extends javax.swing.JFrame {
         }
 
         Novo.setText("Novo");
+        Novo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NovoActionPerformed(evt);
+            }
+        });
 
         Salvar.setText("Salvar");
+        Salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalvarActionPerformed(evt);
+            }
+        });
 
         Cancelar.setText("Cancelar");
+        Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelarActionPerformed(evt);
+            }
+        });
 
         Excluir.setText("Excluir");
 
@@ -204,6 +262,26 @@ public class CadUsuario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void NovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NovoActionPerformed
+    this.visaoController.trocar(false);
+        Editar(true);
+    }//GEN-LAST:event_NovoActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        NomeUsu.requestFocus();
+        this.visaoController.trocar(true);
+        Editar(false);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
+        this.visaoController.trocar(true);
+        Editar(false);
+    }//GEN-LAST:event_CancelarActionPerformed
+
+    private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
+        this.Salvar();
+    }//GEN-LAST:event_SalvarActionPerformed
 
     /**
      * @param args the command line arguments
