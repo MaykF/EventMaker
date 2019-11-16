@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.RollbackException;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import org.json.simple.JSONArray;
@@ -164,6 +166,11 @@ public class CadEvento extends javax.swing.JFrame {
         });
 
         Excluir.setText("Excluir");
+        Excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExcluirActionPerformed(evt);
+            }
+        });
 
         Editar.setText("Editar");
         Editar.addActionListener(new java.awt.event.ActionListener() {
@@ -336,7 +343,7 @@ public class CadEvento extends javax.swing.JFrame {
         atualizando = true;
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         JSONObject dados = new JSONObject();
-        //dados = evento.Recuperar(Integer.parseInt(String.valueOf(modelo.getValueAt(jTable1.getSelectedRow(),1))));
+        dados = evento.Recuperar(Integer.parseInt(String.valueOf(modelo.getValueAt(jTable1.getSelectedRow(),0))));
         NomeEvento.setText(modelo.getValueAt(jTable1.getSelectedRow(), 1).toString());
         try {
             DataInicio.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(modelo.getValueAt(jTable1.getSelectedRow(), 2).toString()));
@@ -350,6 +357,17 @@ public class CadEvento extends javax.swing.JFrame {
         Desc.setText(dados.get("descricao").toString());
         Editar(true);
     }//GEN-LAST:event_EditarActionPerformed
+
+    private void ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        int codigo = Integer.parseInt(modelo.getValueAt(jTable1.getSelectedRow(), 0).toString());
+        try {
+            evento.Excluir(codigo);
+            modelo.removeRow(jTable1.getSelectedRow());
+        } catch (RollbackException ex) {
+            JOptionPane.showMessageDialog(this,"Evento selecionada não pode ser removida.");
+        }
+    }//GEN-LAST:event_ExcluirActionPerformed
 
     /**
      * @param args the command line arguments
