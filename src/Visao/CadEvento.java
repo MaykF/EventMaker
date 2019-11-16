@@ -1,8 +1,12 @@
 package Visao;
 
 import Controller.ControllerEvento;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import org.json.simple.JSONArray;
@@ -160,6 +164,11 @@ public class CadEvento extends javax.swing.JFrame {
         Excluir.setText("Excluir");
 
         Editar.setText("Editar");
+        Editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditarActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Descrição do Evento");
 
@@ -320,6 +329,25 @@ public class CadEvento extends javax.swing.JFrame {
         this.visaoController.trocar(true);
         this.preencher();        
     }//GEN-LAST:event_SalvarActionPerformed
+
+    private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
+        try {
+            this.visaoController.trocar(false);
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+            JSONObject dados = new JSONObject();
+            dados = evento.Recuperar(Integer.parseInt(String.valueOf(modelo.getValueAt(jTable1.getSelectedRow(),1))));
+            atualizando=true;
+            Id.setText(modelo.getValueAt(jTable1.getSelectedRow(),1).toString());
+            NomeEvento.setText(modelo.getValueAt(jTable1.getSelectedRow(),0).toString());
+            DataInicio.setDate(new SimpleDateFormat("MMM dd, yyyy").parse(modelo.getValueAt(jTable1.getSelectedRow(), 2).toString()));
+            DataFim.setDate(new SimpleDateFormat("MMM dd, yyyy").parse(modelo.getValueAt(jTable1.getSelectedRow(), 3).toString()));
+            Cap.setText(modelo.getValueAt(jTable1.getSelectedRow(),4).toString());
+            Local.setText(modelo.getValueAt(jTable1.getSelectedRow(),5).toString());
+            Editar(true);
+        } catch (ParseException ex) {
+            Logger.getLogger(CadEvento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_EditarActionPerformed
 
     /**
      * @param args the command line arguments
