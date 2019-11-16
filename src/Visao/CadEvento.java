@@ -13,16 +13,17 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class CadEvento extends javax.swing.JFrame {
+
     private VisaoController visaoController = null;
     ControllerEvento evento = new ControllerEvento();
-    boolean atualizando=false;
+    boolean atualizando = false;
 
     public CadEvento() {
         initComponents();
         this.visaoController = new VisaoController(Novo, Salvar, Cancelar, Editar, Excluir);
         preencher();
     }
-    
+
     public void preencher() {
         JSONArray dados = evento.RecuperarTodos();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
@@ -35,7 +36,7 @@ public class CadEvento extends javax.swing.JFrame {
         while (i.hasNext()) {
             JSONObject jsonObj = (JSONObject) i.next();
             Object[] tableData = new Object[]{jsonObj.get("id"), jsonObj.get("nome").toString(), jsonObj.get("inicio"),
-            jsonObj.get("termino"), jsonObj.get("capacidade"), jsonObj.get("local")};
+                jsonObj.get("termino"), jsonObj.get("capacidade"), jsonObj.get("local")};
             System.out.println(Arrays.toString(tableData));
             if (!tableData[0].equals("-1")) {
                 modelo.addRow(tableData);
@@ -46,8 +47,8 @@ public class CadEvento extends javax.swing.JFrame {
             jTable1.setRowSelectionInterval(0, 0);
         }
     }
-    
-    private void LimparTela(){
+
+    private void LimparTela() {
         Id.setText("");
         NomeEvento.setText("");
         Cap.setText("");
@@ -56,7 +57,8 @@ public class CadEvento extends javax.swing.JFrame {
         DataInicio.setDate(null);
         DataFim.setDate(null);
     }
-    private void Editar(boolean edt){
+
+    private void Editar(boolean edt) {
         NomeEvento.setEditable(edt);
         DataInicio.setEnabled(edt);
         DataFim.setEnabled(edt);
@@ -303,8 +305,7 @@ public class CadEvento extends javax.swing.JFrame {
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
         if (atualizando) {
-            JSONObject json =  new JSONObject();
-            
+            JSONObject json = new JSONObject();
             json.put("nome", NomeEvento.getText());
             json.put("inicio", ((JTextField) this.DataInicio.getDateEditor().getUiComponent()).getText());
             json.put("termino", ((JTextField) this.DataFim.getDateEditor().getUiComponent()).getText());
@@ -312,41 +313,42 @@ public class CadEvento extends javax.swing.JFrame {
             json.put("local", Local.getText());
             json.put("descricao", Desc.getText());
             evento.Salvar(json);
-        }else{
+        } else {
             JSONObject json = new JSONObject();
             json.put("id", 0);
             json.put("nome", NomeEvento.getText());
-            json.put("descricao", Desc.getText());
-            json.put("capacidade", Cap.getText());
-            json.put("local", Local.getText());
             json.put("inicio", ((JTextField) this.DataInicio.getDateEditor().getUiComponent()).getText());
             json.put("termino", ((JTextField) this.DataFim.getDateEditor().getUiComponent()).getText());
+            json.put("capacidade", Cap.getText());
+            json.put("local", Local.getText());
+            json.put("descricao", Desc.getText());
             evento.Salvar(json);
         }
         atualizando = false;
         LimparTela();
         Editar(false);
         this.visaoController.trocar(true);
-        this.preencher();        
+        this.preencher();
     }//GEN-LAST:event_SalvarActionPerformed
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
+        this.visaoController.trocar(false);
+        atualizando = true;
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        JSONObject dados = new JSONObject();
+        //dados = evento.Recuperar(Integer.parseInt(String.valueOf(modelo.getValueAt(jTable1.getSelectedRow(),1))));
+        NomeEvento.setText(modelo.getValueAt(jTable1.getSelectedRow(), 1).toString());
         try {
-            this.visaoController.trocar(false);
-            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-            JSONObject dados = new JSONObject();
-            dados = evento.Recuperar(Integer.parseInt(String.valueOf(modelo.getValueAt(jTable1.getSelectedRow(),1))));
-            atualizando=true;
-            Id.setText(modelo.getValueAt(jTable1.getSelectedRow(),1).toString());
-            NomeEvento.setText(modelo.getValueAt(jTable1.getSelectedRow(),0).toString());
-            DataInicio.setDate(new SimpleDateFormat("MMM dd, yyyy").parse(modelo.getValueAt(jTable1.getSelectedRow(), 2).toString()));
-            DataFim.setDate(new SimpleDateFormat("MMM dd, yyyy").parse(modelo.getValueAt(jTable1.getSelectedRow(), 3).toString()));
-            Cap.setText(modelo.getValueAt(jTable1.getSelectedRow(),4).toString());
-            Local.setText(modelo.getValueAt(jTable1.getSelectedRow(),5).toString());
-            Editar(true);
+            DataInicio.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(modelo.getValueAt(jTable1.getSelectedRow(), 2).toString()));
+            DataFim.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(modelo.getValueAt(jTable1.getSelectedRow(), 3).toString()));
         } catch (ParseException ex) {
             Logger.getLogger(CadEvento.class.getName()).log(Level.SEVERE, null, ex);
         }
+        Cap.setText(modelo.getValueAt(jTable1.getSelectedRow(), 4).toString());
+        Local.setText(modelo.getValueAt(jTable1.getSelectedRow(), 5).toString());
+        Id.setText(modelo.getValueAt(jTable1.getSelectedRow(), 0).toString());
+        Desc.setText(dados.get("descricao").toString());
+        Editar(true);
     }//GEN-LAST:event_EditarActionPerformed
 
     /**

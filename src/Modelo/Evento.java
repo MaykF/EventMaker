@@ -14,6 +14,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.RootPaneUI;
 
@@ -29,7 +30,9 @@ public class Evento extends ObjetoBase implements Serializable{
     private String descricao;
     private int capacidade;
     private String local;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date inicio;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date termino;
     @OneToMany(mappedBy = "evento")
     private List<Inscricao> inscricoes;
@@ -87,7 +90,7 @@ public class Evento extends ObjetoBase implements Serializable{
     public ObjetoBase toObjeto(JSONObject jsonfile) {
         try {
             SimpleDateFormat ddMMyyyy = new SimpleDateFormat("dd/MM/yyyy");
-            this.setId(Integer.parseInt(String.valueOf(jsonfile.get("id"))));
+            //this.setId(Integer.parseInt(String.valueOf(jsonfile.get("id"))));
             this.setNome((String) jsonfile.get("nome"));
             this.setDescricao((String) jsonfile.get("descricao"));
             this.setCapacidade(Integer.parseInt((String) jsonfile.get("capacidade")));

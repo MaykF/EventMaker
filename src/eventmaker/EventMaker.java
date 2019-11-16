@@ -32,7 +32,7 @@ public class EventMaker {
         EntityManager undPersist = FabricaJPA.getManager();
                 
         
-        /*RODAR PARA INSERIR USUARIO
+        //RODAR PARA INSERIR USUARIO
         JSONObject jsonfile = new JSONObject();
         jsonfile.put("nome", "Rodrigo");
         jsonfile.put("login", "dahora");
@@ -40,7 +40,7 @@ public class EventMaker {
         jsonfile.put("isadmin", true);
         
         ControllerUsuario C = new ControllerUsuario();
-        C.Salvar(jsonfile);*/
+        C.Salvar(jsonfile);
         
     }
     
