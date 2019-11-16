@@ -6,8 +6,6 @@ import java.util.Iterator;
 import javax.persistence.RollbackException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import jdk.nashorn.api.scripting.JSObject;
-import oracle.jrockit.jfr.tools.ConCatRepository;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 

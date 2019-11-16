@@ -7,6 +7,7 @@ package Modelo;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import org.json.simple.JSONObject;
@@ -20,6 +21,7 @@ import org.json.simple.JSONObject;
 public class Pessoa extends ObjetoBase implements Serializable{
     
     private String nome;
+    @Column(unique = true)
     private String CPF;
     private String RG;
     private String endereco;
