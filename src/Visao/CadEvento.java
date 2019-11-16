@@ -1,9 +1,14 @@
 package Visao;
 
 import Controller.ControllerEvento;
+import java.awt.AWTKeyStroke;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,8 +27,34 @@ public class CadEvento extends javax.swing.JFrame {
 
     public CadEvento() {
         initComponents();
+        ((JTextField) this.DataFim.getDateEditor().getUiComponent()).addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent ke) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent ke) {
+                if (ke.getKeyCode() == ke.VK_ENTER) {
+                    DataInicio.requestFocusInWindow();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+
+            }
+        });
+        Keypress_jDateChoooser();
         this.visaoController = new VisaoController(Novo, Salvar, Cancelar, Editar, Excluir);
         preencher();
+    }
+
+    private void Keypress_jDateChoooser() {
+        HashSet<AWTKeyStroke> conjForward = new HashSet<AWTKeyStroke>(DataInicio.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
+        conjForward.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_ENTER, 0));
+        DataInicio.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, conjForward);
+        DataFim.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, conjForward);
     }
 
     public void preencher() {
@@ -68,6 +99,33 @@ public class CadEvento extends javax.swing.JFrame {
         Local.setEditable(edt);
         Desc.setEditable(edt);
     }
+    private void Salvar(){
+        if (atualizando) {
+            JSONObject json = new JSONObject();
+            json.put("nome", NomeEvento.getText());
+            json.put("inicio", ((JTextField) this.DataInicio.getDateEditor().getUiComponent()).getText());
+            json.put("termino", ((JTextField) this.DataFim.getDateEditor().getUiComponent()).getText());
+            json.put("capacidade", Cap.getText());
+            json.put("local", Local.getText());
+            json.put("descricao", Desc.getText());
+            evento.Salvar(json);
+        } else {
+            JSONObject json = new JSONObject();
+            json.put("id", 0);
+            json.put("nome", NomeEvento.getText());
+            json.put("inicio", ((JTextField) this.DataInicio.getDateEditor().getUiComponent()).getText());
+            json.put("termino", ((JTextField) this.DataFim.getDateEditor().getUiComponent()).getText());
+            json.put("capacidade", Cap.getText());
+            json.put("local", Local.getText());
+            json.put("descricao", Desc.getText());
+            evento.Salvar(json);
+        }
+        atualizando = false;
+        LimparTela();
+        Editar(false);
+        this.visaoController.trocar(true);
+        this.preencher();
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -106,17 +164,47 @@ public class CadEvento extends javax.swing.JFrame {
 
         jLabel1.setText("Nome do Evento");
 
+        NomeEvento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                NomeEventoKeyPressed(evt);
+            }
+        });
+
         jLabel2.setText("Data Inicio");
 
         jLabel3.setText("Codigo");
 
         Id.setEditable(false);
 
+        DataInicio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                DataInicioKeyPressed(evt);
+            }
+        });
+
         jLabel4.setText("Data Fim");
+
+        DataFim.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                DataFimKeyPressed(evt);
+            }
+        });
 
         jLabel5.setText("Capacidade");
 
+        Cap.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                CapKeyPressed(evt);
+            }
+        });
+
         jLabel6.setText("Local");
+
+        Local.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                LocalKeyPressed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -157,6 +245,11 @@ public class CadEvento extends javax.swing.JFrame {
                 SalvarActionPerformed(evt);
             }
         });
+        Salvar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                SalvarKeyPressed(evt);
+            }
+        });
 
         Cancelar.setText("Cancelar");
         Cancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -183,6 +276,11 @@ public class CadEvento extends javax.swing.JFrame {
 
         Desc.setColumns(20);
         Desc.setRows(5);
+        Desc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                DescKeyPressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(Desc);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -311,39 +409,16 @@ public class CadEvento extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
-        if (atualizando) {
-            JSONObject json = new JSONObject();
-            json.put("nome", NomeEvento.getText());
-            json.put("inicio", ((JTextField) this.DataInicio.getDateEditor().getUiComponent()).getText());
-            json.put("termino", ((JTextField) this.DataFim.getDateEditor().getUiComponent()).getText());
-            json.put("capacidade", Cap.getText());
-            json.put("local", Local.getText());
-            json.put("descricao", Desc.getText());
-            evento.Salvar(json);
-        } else {
-            JSONObject json = new JSONObject();
-            json.put("id", 0);
-            json.put("nome", NomeEvento.getText());
-            json.put("inicio", ((JTextField) this.DataInicio.getDateEditor().getUiComponent()).getText());
-            json.put("termino", ((JTextField) this.DataFim.getDateEditor().getUiComponent()).getText());
-            json.put("capacidade", Cap.getText());
-            json.put("local", Local.getText());
-            json.put("descricao", Desc.getText());
-            evento.Salvar(json);
-        }
-        atualizando = false;
-        LimparTela();
-        Editar(false);
-        this.visaoController.trocar(true);
-        this.preencher();
+        this.Salvar();
     }//GEN-LAST:event_SalvarActionPerformed
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
         this.visaoController.trocar(false);
+        NomeEvento.requestFocus();
         atualizando = true;
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         JSONObject dados = new JSONObject();
-        dados = evento.Recuperar(Integer.parseInt(String.valueOf(modelo.getValueAt(jTable1.getSelectedRow(),0))));
+        dados = evento.Recuperar(Integer.parseInt(String.valueOf(modelo.getValueAt(jTable1.getSelectedRow(), 0))));
         NomeEvento.setText(modelo.getValueAt(jTable1.getSelectedRow(), 1).toString());
         try {
             DataInicio.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(modelo.getValueAt(jTable1.getSelectedRow(), 2).toString()));
@@ -365,9 +440,51 @@ public class CadEvento extends javax.swing.JFrame {
             evento.Excluir(codigo);
             modelo.removeRow(jTable1.getSelectedRow());
         } catch (RollbackException ex) {
-            JOptionPane.showMessageDialog(this,"Evento selecionada não pode ser removida.");
+            JOptionPane.showMessageDialog(this, "Evento selecionada não pode ser removida.");
         }
     }//GEN-LAST:event_ExcluirActionPerformed
+
+    private void NomeEventoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NomeEventoKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            DataInicio.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_NomeEventoKeyPressed
+
+    private void DataInicioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DataInicioKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            DataFim.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_DataInicioKeyPressed
+
+    private void DataFimKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DataFimKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            Cap.requestFocus();
+        }
+    }//GEN-LAST:event_DataFimKeyPressed
+
+    private void CapKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CapKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            Local.requestFocus();
+        }
+    }//GEN-LAST:event_CapKeyPressed
+
+    private void LocalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_LocalKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            Desc.requestFocus();
+        }
+    }//GEN-LAST:event_LocalKeyPressed
+
+    private void SalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SalvarKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            this.Salvar();
+        }
+    }//GEN-LAST:event_SalvarKeyPressed
+
+    private void DescKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            Salvar.requestFocus();
+        }
+    }//GEN-LAST:event_DescKeyPressed
 
     /**
      * @param args the command line arguments

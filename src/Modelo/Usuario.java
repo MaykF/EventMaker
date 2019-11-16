@@ -106,7 +106,7 @@ public class Usuario extends ObjetoBase implements Serializable{
     public JSONObject toJSONObject() {
         
         JSONObject jsonfile = new JSONObject();
-        
+        jsonfile.put("id", this.getId());
         jsonfile.put("nome", this.getNome());
         jsonfile.put("login", this.getLogin());
         jsonfile.put("senha", this.getSenha());
