@@ -9,7 +9,7 @@ public class FabricaJPA {
 
     private static EntityManagerFactory Fabrica = null;
     private static final String nomeUndPerstencia = "eventmakerpu";
-    private static Map<String, String> propriedades;
+    public static Map<String, String> propriedades;
     
     private FabricaJPA() {
         Fabrica = Persistence.createEntityManagerFactory(nomeUndPerstencia,propriedades);

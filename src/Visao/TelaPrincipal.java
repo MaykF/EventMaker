@@ -33,14 +33,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
      * Creates new form TelaPrincipal
      */
     private static final ScheduledExecutorService background = Executors.newSingleThreadScheduledExecutor();
-    
+
     public TelaPrincipal() {
         initComponents();
         customizeMenuBar(jMenuBar1);
         this.setLocationRelativeTo(null);
     }
-    
-    public TelaPrincipal(String usuarioLogin){
+
+    public TelaPrincipal(String usuarioLogin) {
         initComponents();
         customizeMenuBar(jMenuBar1);
         this.setLocationRelativeTo(null);
@@ -69,6 +69,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
 
@@ -159,6 +160,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem4.setText("Inscrição");
         jMenu2.add(jMenuItem4);
 
+        jMenuItem5.setText("Config Banco");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem5);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Relatórios");
@@ -197,58 +206,62 @@ public class TelaPrincipal extends javax.swing.JFrame {
         new CadEvento().setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        new TelaConfigBanco().setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
     private void customizeMenuBar(JMenuBar menuBar) {
 
-    menuBar.setUI(new BasicMenuBarUI() {
+        menuBar.setUI(new BasicMenuBarUI() {
 
-        public void paint(Graphics g, JComponent c) {
-            g.setColor(Color.gray);
-            g.fillRect(0, 0, c.getWidth(), c.getHeight());
-        }
+            public void paint(Graphics g, JComponent c) {
+                g.setColor(Color.gray);
+                g.fillRect(0, 0, c.getWidth(), c.getHeight());
+            }
 
-    });
+        });
 
-    MenuElement[] menus = menuBar.getSubElements();
+        MenuElement[] menus = menuBar.getSubElements();
 
-    for (MenuElement menuElement : menus) {
+        for (MenuElement menuElement : menus) {
 
-        JMenu menu = (JMenu) menuElement.getComponent();
-        changeComponentColors(menu);
-        menu.setOpaque(true);
+            JMenu menu = (JMenu) menuElement.getComponent();
+            changeComponentColors(menu);
+            menu.setOpaque(true);
 
-        MenuElement[] menuElements = menu.getSubElements();
+            MenuElement[] menuElements = menu.getSubElements();
 
-        for (MenuElement popupMenuElement : menuElements) {
+            for (MenuElement popupMenuElement : menuElements) {
 
-            JPopupMenu popupMenu = (JPopupMenu) popupMenuElement.getComponent();
-            popupMenu.setBorder(null);
+                JPopupMenu popupMenu = (JPopupMenu) popupMenuElement.getComponent();
+                popupMenu.setBorder(null);
 
-            MenuElement[] menuItens = popupMenuElement.getSubElements();
+                MenuElement[] menuItens = popupMenuElement.getSubElements();
 
-            for (MenuElement menuItemElement : menuItens) {
+                for (MenuElement menuItemElement : menuItens) {
 
-                JMenuItem menuItem = (JMenuItem) menuItemElement.getComponent();
-                changeComponentColors(menuItem);
-                menuItem.setOpaque(true);
+                    JMenuItem menuItem = (JMenuItem) menuItemElement.getComponent();
+                    changeComponentColors(menuItem);
+                    menuItem.setOpaque(true);
 
+                }
             }
         }
-    }
     }
 
     private void changeComponentColors(Component comp) {
         comp.setBackground(Color.gray);
         comp.setForeground(Color.white);
     }
-    
-    public void mostrarHora() { 
+
+    public void mostrarHora() {
         // método de chamada para atualização da hora
         HorarioUtil horarioUtil = new HorarioUtil(jLabelHora);
         horarioUtil.mostrarData(true);
         Thread thHora = horarioUtil;
         thHora.start();
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -280,7 +293,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaPrincipal().setVisible(true);
-                
+
             }
         });
     }
@@ -299,6 +312,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
