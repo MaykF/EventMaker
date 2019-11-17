@@ -3,6 +3,8 @@ package Visao;
 import Controller.ControllerUsuario;
 import java.util.Arrays;
 import java.util.Iterator;
+import javax.persistence.RollbackException;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import org.json.simple.JSONArray;
@@ -127,7 +129,7 @@ public class CadUsuario extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Nome", "gerente"
+                "Id", "Nome", "Administrador"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -167,8 +169,18 @@ public class CadUsuario extends javax.swing.JFrame {
         });
 
         Excluir.setText("Excluir");
+        Excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExcluirActionPerformed(evt);
+            }
+        });
 
         Editar.setText("Editar");
+        Editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -276,12 +288,38 @@ public class CadUsuario extends javax.swing.JFrame {
 
     private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
         this.visaoController.trocar(true);
+        LimparTela();
         Editar(false);
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
         this.Salvar();
     }//GEN-LAST:event_SalvarActionPerformed
+
+    private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
+        this.visaoController.trocar(false);
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        JSONObject dados = new JSONObject();
+        dados = usuario.Recuperar(Integer.parseInt(String.valueOf(modelo.getValueAt(jTable1.getSelectedRow(),0))));
+        atualizando=true;
+        Id.setText(modelo.getValueAt(jTable1.getSelectedRow(),0).toString());
+        NomeUsu.setText(modelo.getValueAt(jTable1.getSelectedRow(),1).toString());
+        Adm.setSelected(Boolean.parseBoolean(String.valueOf(modelo.getValueAt(jTable1.getSelectedRow(),2))));
+        Login.setText(dados.get("login").toString());
+        Senha.setText(dados.get("senha").toString());
+        Editar(true);
+    }//GEN-LAST:event_EditarActionPerformed
+
+    private void ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        int codigo = Integer.parseInt(modelo.getValueAt(jTable1.getSelectedRow(), 0).toString());
+        try {
+            usuario.Excluir(codigo);
+            modelo.removeRow(jTable1.getSelectedRow());
+        } catch (RollbackException ex) {
+            JOptionPane.showMessageDialog(this,"Usuario selecionada não pode ser removida.");
+        }
+    }//GEN-LAST:event_ExcluirActionPerformed
 
     /**
      * @param args the command line arguments

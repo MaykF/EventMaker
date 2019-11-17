@@ -405,6 +405,7 @@ public class CadEvento extends javax.swing.JFrame {
 
     private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
         this.visaoController.trocar(true);
+        LimparTela();
         Editar(false);
     }//GEN-LAST:event_CancelarActionPerformed
 
