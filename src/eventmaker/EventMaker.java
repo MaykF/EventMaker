@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package eventmaker;
 
 import Controller.ControllerUsuario;
@@ -13,10 +9,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.json.simple.JSONObject;
 
-/**
- *
- * @author Maycon
- */
 public class EventMaker {
 
     /**
@@ -32,7 +24,7 @@ public class EventMaker {
         EntityManager undPersist = FabricaJPA.getManager();
                 
         
-        /*RODAR PARA INSERIR USUARIO
+        //RODAR PARA INSERIR USUARIO
         JSONObject jsonfile = new JSONObject();
         jsonfile.put("nome", "Rodrigo");
         jsonfile.put("login", "dahora");
@@ -40,7 +32,7 @@ public class EventMaker {
         jsonfile.put("isadmin", true);
         
         ControllerUsuario C = new ControllerUsuario();
-        C.Salvar(jsonfile);*/
+        C.Salvar(jsonfile);
         
     }
     

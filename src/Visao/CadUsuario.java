@@ -64,7 +64,7 @@ public class CadUsuario extends javax.swing.JFrame {
             JSONObject json = new JSONObject();
             json.put("nome", NomeUsu.getText());
             json.put("login", Login.getText());
-            json.put("senha", ControllerUsuario.CriptografarSenha(Senha.getText()));
+            json.put("senha", ControllerUsuario.CriptografarSenha(new String(Senha.getPassword())));
             json.put("isadmin", Adm.isSelected());
             usuario.Salvar(json);
         } else {
@@ -72,7 +72,7 @@ public class CadUsuario extends javax.swing.JFrame {
             json.put("id", 0);
             json.put("nome", NomeUsu.getText());
             json.put("login", Login.getText());
-            json.put("senha", ControllerUsuario.CriptografarSenha(Senha.getText()));
+            json.put("senha", ControllerUsuario.CriptografarSenha(new String(Senha.getPassword())));
             json.put("isadmin", Adm.isSelected());
             usuario.Salvar(json);
         }
@@ -105,7 +105,7 @@ public class CadUsuario extends javax.swing.JFrame {
         Excluir = new javax.swing.JButton();
         Editar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);

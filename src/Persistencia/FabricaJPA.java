@@ -1,24 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Persistencia;
 
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-/**
- *
- * @author Maycon
- */
 public class FabricaJPA {
 
     private static EntityManagerFactory Fabrica = null;
     private static final String nomeUndPerstencia = "eventmakerpu";
+    private static Map<String, String> propriedades;
+    
     private FabricaJPA() {
-        Fabrica = Persistence.createEntityManagerFactory(nomeUndPerstencia);
+        Fabrica = Persistence.createEntityManagerFactory(nomeUndPerstencia,propriedades);
     }
 
     public static EntityManager getManager() {
