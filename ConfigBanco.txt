@@ -1,3 +1,3 @@
-jdbc:mysql://34.95.238.134:3306/EventMaker
+jdbc:mysql://34.95.238.134:3306/eventmakerdb
 dahora
 123456

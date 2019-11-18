@@ -1,6 +1,6 @@
 package Persistencia;
 
-import java.util.Map;
+import java.util.HashMap;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -9,7 +9,7 @@ public class FabricaJPA {
 
     private static EntityManagerFactory Fabrica = null;
     private static final String nomeUndPerstencia = "eventmakerpu";
-    public static Map<String, String> propriedades;
+    public static HashMap<String, String> propriedades;
     
     private FabricaJPA() {
         Fabrica = Persistence.createEntityManagerFactory(nomeUndPerstencia,propriedades);
@@ -22,9 +22,11 @@ public class FabricaJPA {
                 System.out.println("Fabrica JPA aberta!");
             }  
                       
-            return Fabrica.createEntityManager();
+            return Fabrica.createEntityManager(propriedades);
+            
         } catch (Exception e) {
             System.err.println("Erro ao abrir conexão JPA ou criar gerenciador: " + e.getMessage());
+            System.out.println(e.getCause());
             return null;
         }        
     }

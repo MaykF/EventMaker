@@ -18,17 +18,18 @@ public class EventMaker {
         arquivo = ConfigBanco.Ler();
         System.out.println(Arrays.toString(arquivo));
         HashMap<String,String> propriedades = new HashMap<String, String>();
-        //propriedades.put("javax.persistence.jdbc.url", arquivo[0]);
-        //propriedades.put("javax.persistence.jdbc.user", arquivo[1]);
-        //propriedades.put("javax.persistence.jdbc.password", arquivo[2]);
-        //propriedades.put("javax.persistence.jdbc.driver", "com.mysql.jdbc.Driver");
-        //FabricaJPA.propriedades = propriedades;
-        //TelaLogin telalogin = new TelaLogin();
-        //telalogin.setVisible(true);
+        propriedades.put("javax.persistence.jdbc.driver", "com.mysql.jdbc.Driver");
+        propriedades.put("javax.persistence.jdbc.url", arquivo[0]);
+        propriedades.put("javax.persistence.jdbc.user", arquivo[1]);
+        propriedades.put("javax.persistence.jdbc.password", arquivo[2]);
+        
+        FabricaJPA.propriedades = propriedades;
+        TelaLogin telalogin = new TelaLogin();
+        telalogin.setVisible(true);
         
         
         //EntityManagerFactory fabrica = Persistence.createEntityManagerFactory("eventmakerpu");
-        EntityManager undPersist = FabricaJPA.getManager();
+        //EntityManager undPersist = FabricaJPA.getManager();
                 
         
         /*RODAR PARA INSERIR USUARIO
