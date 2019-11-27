@@ -16,7 +16,7 @@ OK    RF3 – Cadastro de eventos Descrição:  O sistema deve gerir eventos (co
  
 OK    RF5 – LOGIN Descrição:  O sistema deve permitir que usuários cadastrados façam o login no sistema. Deve ser validado o nome de login e a senha informada.  Versão: 1.0 
  
-    RF6 – Configuração de banco de dados Descrição:  Deve ser permitido ao usuário administrador fazer a configuração da localização do banco de dados.  Versão: 1.0 
+OK    RF6 – Configuração de banco de dados Descrição:  Deve ser permitido ao usuário administrador fazer a configuração da localização do banco de dados.  Versão: 1.0 
  
     RF7 – Consulta de inscrição por evento Descrição:  O sistema permitir filtrar as inscrições por evento, data de inscrição e participante. Versão: 1.0 
  
@@ -40,7 +40,8 @@ OK    RF5 – LOGIN Descrição:  O sistema deve permitir que usuários cadastra
  
  
 4. Regras de Negócio (Business Rules) 
-4.1. Regras de Negócio BR1) Apenas usuários administradores podem fazer o cadastro de eventos. 
+4.1. Regras de Negócio 
+    BR1) Apenas usuários administradores podem fazer o cadastro de eventos. 
     BR2) Apenas usuários administradores podem fazer importações e exportações. 
     BR3) Apenas usuários administradores podem gerir usuários. 
     BR4) Não deve ser possível cadastrar pessoas com CPF e Matrícula repetidos. 

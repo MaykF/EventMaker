@@ -1,6 +1,8 @@
 package Visao;
 
 import Controller.ControllerEvento;
+import Controller.ControllerUsuario;
+import Modelo.Evento_;
 import java.awt.AWTKeyStroke;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
@@ -21,13 +23,15 @@ import org.json.simple.JSONObject;
 
 public class CadEvento extends javax.swing.JFrame {
 
+    private String UsuarioAtual;        // ARMAZENA O USUARIO QUE ACESSOU A TELA, NECESSÁRIO VALIDAR PARA VERIFICAR SE É ADMINISTRADOR
     private VisaoController visaoController = null;
     ControllerEvento evento = new ControllerEvento();
     boolean atualizando = false;
 
-    public CadEvento() {
+    public CadEvento(String usuarioAtual) {     // USUARIO QUE ABRIU A TELA
         initComponents();
-        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);     
+        this.UsuarioAtual = usuarioAtual;
         ((JTextField) this.DataFim.getDateEditor().getUiComponent()).addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent ke) {
@@ -49,6 +53,8 @@ public class CadEvento extends javax.swing.JFrame {
         Keypress_jDateChoooser();
         this.visaoController = new VisaoController(Novo, Salvar, Cancelar, Editar, Excluir);
         preencher();
+        
+        this.ConfereAdministrador(); // CONFERE SE O USUARIO ATUAL É ADMINISTRADOR E BLOQUEIA OS CAMPOS PARA NAO SEREM EDITADOS
     }
 
     private void Keypress_jDateChoooser() {
@@ -56,6 +62,25 @@ public class CadEvento extends javax.swing.JFrame {
         conjForward.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_ENTER, 0));
         DataInicio.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, conjForward);
         DataFim.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, conjForward);
+    }
+    
+    private void ConfereAdministrador(){
+        if(!ControllerUsuario.ValidaAdm(UsuarioAtual)){ // SE NAO FOR ADMINISTRADOR NAO PODE ALTERAR NADA, BLOQUEIA TUDO
+            NomeEvento.setEnabled(false);
+            DataFim.setEnabled(false);
+            DataInicio.setEnabled(false);
+            Cap.setEnabled(false);
+            Local.setEnabled(false);
+            Desc.setEnabled(false);
+            
+            Novo.setEnabled(false);
+            Salvar.setEnabled(false);
+            Excluir.setEnabled(false);
+            Cancelar.setEnabled(false);
+            Editar.setEnabled(false);
+            JOptionPane.showMessageDialog(null, UsuarioAtual);
+        }
+    
     }
 
     public void preencher() {
@@ -99,6 +124,13 @@ public class CadEvento extends javax.swing.JFrame {
         Cap.setEditable(edt);
         Local.setEditable(edt);
         Desc.setEditable(edt);
+        if(!ControllerUsuario.ValidaAdm(UsuarioAtual)){     // SE NAO FOR ADMINISTRADOR BLOQUEARA OS BOTOES PARA NAO PERMITIR ALTERAR
+            Novo.setEnabled(false);
+            Salvar.setEnabled(false);
+            Excluir.setEnabled(false);
+            Cancelar.setEnabled(false);
+            Editar.setEnabled(false);
+        }
     }
     private void Salvar(){
         if (atualizando) {
@@ -518,7 +550,7 @@ public class CadEvento extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadEvento().setVisible(true);
+                new CadEvento("").setVisible(true);
             }
         });
     }
