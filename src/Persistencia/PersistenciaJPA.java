@@ -38,6 +38,6 @@ public class PersistenciaJPA<T extends ObjetoBase> {
     }
     
     public List<T> recuperarTodos(){
-        return (List<T>) FuncoesJPA.Selecionar(classePersistente);
+        return (List<T>) FuncoesJPA.Selecionar(classePersistente);  
     }
 }

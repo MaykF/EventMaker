@@ -7,6 +7,7 @@ package Modelo;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import org.json.simple.JSONObject;
@@ -20,6 +21,7 @@ import org.json.simple.JSONObject;
 public class Pessoa extends ObjetoBase implements Serializable{
     
     private String nome;
+    @Column(unique = true)
     private String CPF;
     private String RG;
     private String endereco;
@@ -96,7 +98,7 @@ public class Pessoa extends ObjetoBase implements Serializable{
 
     @Override
     public ObjetoBase toObjeto(JSONObject jsonfile) {
-        this.setId(0);
+        //this.setId((int) jsonfile.get("id"));
         this.setNome((String) jsonfile.get("nome"));
         this.setCPF((String) jsonfile.get("CPF"));
         this.setRG((String) jsonfile.get("RG"));
@@ -111,9 +113,8 @@ public class Pessoa extends ObjetoBase implements Serializable{
 
     @Override
     public JSONObject toJSONObject() {
-        
         JSONObject jsonfile = new JSONObject();
-        jsonfile.put("id", 0);
+        jsonfile.put("id", this.getId());
         jsonfile.put("nome", this.getNome());
         jsonfile.put("CPF", this.getCPF());
         jsonfile.put("RG", this.getRG());

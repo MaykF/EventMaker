@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Modelo;
 
 import java.io.Serializable;
@@ -12,10 +7,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import org.json.simple.JSONObject;
 
-/**
- *
- * @author Maycon
- */
 @Entity
 public class Inscricao extends ObjetoBase implements Serializable{
 

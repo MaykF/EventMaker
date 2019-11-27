@@ -6,10 +6,17 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.persistence.Entity;
 import org.json.simple.JSONObject;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.swing.JOptionPane;
+import javax.swing.plaf.RootPaneUI;
 
 
 /**
@@ -22,9 +29,11 @@ public class Evento extends ObjetoBase implements Serializable{
     private String nome;
     private String descricao;
     private int capacidade;
-    private String endereco;
-    private GregorianCalendar inicio;
-    private GregorianCalendar termino;
+    private String local;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date inicio;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date termino;
     @OneToMany(mappedBy = "evento")
     private List<Inscricao> inscricoes;
 
@@ -52,60 +61,62 @@ public class Evento extends ObjetoBase implements Serializable{
         this.capacidade = capacidade;
     }
 
-    public String getEndereco() {
-        return endereco;
+    public String getLocal() {
+        return local;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public void setLocal(String local) {
+        this.local = local;
     }   
 
-    public GregorianCalendar getInicio() {
+    public Date getInicio() {
         return inicio;
     }
 
-    public void setInicio(GregorianCalendar inicio) {
+    public void setInicio(Date inicio) {
         this.inicio = inicio;
     }
 
-    public GregorianCalendar getTermino() {
+    public Date getTermino() {
         return termino;
     }
 
-    public void setTermino(GregorianCalendar termino) {
+    public void setTermino(Date termino) {
         this.termino = termino;
     }
 
 
 
     public ObjetoBase toObjeto(JSONObject jsonfile) {
-        
-        this.setNome((String) jsonfile.get("nome"));
-        this.setDescricao((String) jsonfile.get("descricao"));
-        this.setCapacidade((int) jsonfile.get("capacidade"));
-        this.setEndereco((String) jsonfile.get("endereco"));
-        this.setInicio((GregorianCalendar) jsonfile.get("inicio"));
-        this.setTermino((GregorianCalendar) jsonfile.get("termino"));
-        
-        return this;
+        try {
+            SimpleDateFormat ddMMyyyy = new SimpleDateFormat("dd/MM/yyyy");
+            //this.setId(Integer.parseInt(String.valueOf(jsonfile.get("id"))));
+            this.setNome((String) jsonfile.get("nome"));
+            this.setDescricao((String) jsonfile.get("descricao"));
+            this.setCapacidade(Integer.parseInt((String) jsonfile.get("capacidade")));
+            this.setLocal((String) jsonfile.get("local"));
+            this.setInicio(ddMMyyyy.parse(jsonfile.get("inicio").toString()));
+            this.setTermino(ddMMyyyy.parse(jsonfile.get("termino").toString()));
+            
+            return this;
+        } catch (ParseException ex) {
+            Logger.getLogger(Evento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     
     public JSONObject toJSONObject() {
         
         JSONObject jsonfile = new JSONObject();
-        
+        jsonfile.put("id", this.getId());
         jsonfile.put("nome", this.getNome());
         jsonfile.put("descricao", this.getDescricao());
         jsonfile.put("capacidade", this.getCapacidade());
-        jsonfile.put("enredeco", this.getEndereco());
+        jsonfile.put("local", this.getLocal());
         jsonfile.put("inicio", this.getInicio());
         jsonfile.put("termino", this.getTermino());
         
         return jsonfile;
-    }
-    
-    
-    
-    
+    } 
 }
