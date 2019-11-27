@@ -28,6 +28,7 @@ public class Pessoa extends ObjetoBase implements Serializable{
     private String cidade;
     private String telefone;
     private String email;
+    @Column(unique=true)
     private String numMatricula;
     @OneToMany(mappedBy = "pessoa")
     private List<Inscricao> inscricoes;
