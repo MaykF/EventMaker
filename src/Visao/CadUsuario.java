@@ -12,15 +12,34 @@ import org.json.simple.JSONObject;
 
 public class CadUsuario extends javax.swing.JFrame {
 
+    private String UsuarioAtual;        // ARMAZENA O USUARIO QUE ACESSOU A TELA, NECESSÁRIO VALIDAR PARA VERIFICAR SE É ADMINISTRADOR
     ControllerUsuario usuario = new ControllerUsuario();
     private VisaoController visaoController = null;
     boolean atualizando = false;
 
-    public CadUsuario() {
+    public CadUsuario(String usuarioAtual) {
         initComponents();
+        this.UsuarioAtual = usuarioAtual;
         this.visaoController = new VisaoController(Novo, Salvar, Cancelar, Editar, Excluir);
         this.setLocationRelativeTo(null);
         this.preencher();
+        this.ConfereAdministrador();
+    }
+    
+    private void ConfereAdministrador(){
+        if(!ControllerUsuario.ValidaAdm(UsuarioAtual)){ // SE NAO FOR ADMINISTRADOR NAO PODE ALTERAR NADA, BLOQUEIA TUDO
+            NomeUsu.setEnabled(false);
+            Login.setEnabled(false);
+            Senha.setEnabled(false);
+            Adm.setEnabled(false);
+            
+            Novo.setEnabled(false);
+            Salvar.setEnabled(false);
+            Excluir.setEnabled(false);
+            Cancelar.setEnabled(false);
+            Editar.setEnabled(false);
+        }
+    
     }
 
     public void preencher() {
@@ -58,6 +77,13 @@ public class CadUsuario extends javax.swing.JFrame {
         Login.setEnabled(edt);
         Senha.setEnabled(edt);
         Adm.setEnabled(edt);
+        if(!ControllerUsuario.ValidaAdm(UsuarioAtual)){     // SE NAO FOR ADMINISTRADOR BLOQUEARA OS BOTOES PARA NAO PERMITIR ALTERAR
+            Novo.setEnabled(false);
+            Salvar.setEnabled(false);
+            Excluir.setEnabled(false);
+            Cancelar.setEnabled(false);
+            Editar.setEnabled(false);
+        }
     }
     private void Salvar(){
         if (atualizando) {
@@ -351,7 +377,7 @@ public class CadUsuario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadUsuario().setVisible(true);
+                new CadUsuario("").setVisible(true);
             }
         });
     }

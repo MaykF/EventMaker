@@ -78,7 +78,6 @@ public class CadEvento extends javax.swing.JFrame {
             Excluir.setEnabled(false);
             Cancelar.setEnabled(false);
             Editar.setEnabled(false);
-            JOptionPane.showMessageDialog(null, UsuarioAtual);
         }
     
     }

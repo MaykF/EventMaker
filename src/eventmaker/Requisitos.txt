@@ -41,7 +41,7 @@ OK    RF6 – Configuração de banco de dados Descrição:  Deve ser permitido 
  
 4. Regras de Negócio (Business Rules) 
 4.1. Regras de Negócio 
-    BR1) Apenas usuários administradores podem fazer o cadastro de eventos. 
+OK    BR1) Apenas usuários administradores podem fazer o cadastro de eventos. 
     BR2) Apenas usuários administradores podem fazer importações e exportações. 
     BR3) Apenas usuários administradores podem gerir usuários. 
     BR4) Não deve ser possível cadastrar pessoas com CPF e Matrícula repetidos. 
