@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package eventmaker;
 
 import Controller.ControllerUsuario;
@@ -16,15 +12,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.json.simple.JSONObject;
 
-/**
- *
- * @author Maycon
- */
 public class EventMaker {
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         String[] arquivo = new String[3];
         arquivo = ConfigBanco.Ler();
@@ -46,9 +34,9 @@ public class EventMaker {
         
         /*RODAR PARA INSERIR USUARIO
         JSONObject jsonfile = new JSONObject();
-        jsonfile.put("nome", "Maycon");
-        jsonfile.put("login", "mayk");
-        jsonfile.put("senha", "a");
+        jsonfile.put("nome", "Rodrigo");
+        jsonfile.put("login", "dahora");
+        jsonfile.put("senha", "1");
         jsonfile.put("isadmin", true);
         
         JSONObject jsonfile = new JSONObject();

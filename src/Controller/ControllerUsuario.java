@@ -40,7 +40,9 @@ public class ControllerUsuario extends ControllerBase{
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         //JOptionPane.showMessageDialog(null, senhaCript);
+
         return senhaCript;
         
     }
