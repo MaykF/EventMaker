@@ -1,5 +1,6 @@
 package Visao;
 
+import Controller.ControllerUsuario;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
@@ -13,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.MenuElement;
 import javax.swing.SwingUtilities;
@@ -190,7 +192,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        new TelaConfigBanco().setVisible(true);
+        
+        ControllerUsuario controllerUsuario = new ControllerUsuario();
+        
+        if(ControllerUsuario.ValidaAdm(jLabelUsuarioLogado.getText())){
+            new TelaConfigBanco().setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null, "Somente usuários administradores podem alterar a configuração do banco de dados");       
+        }
+        
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void customizeMenuBar(JMenuBar menuBar) {

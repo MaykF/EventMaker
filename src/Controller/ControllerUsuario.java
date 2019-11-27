@@ -60,4 +60,18 @@ public class ControllerUsuario extends ControllerBase{
         return !Usuario.isEmpty();
     }
     
+    public static boolean ValidaAdm(String login){
+        
+        String[][] parametros = new String[2][2];
+        parametros[0][0] = "login";
+        parametros[0][1] = "'" + login + "'";
+        parametros[1][0] = "isadmin";
+        parametros[1][1] = "'1'"; // Valida se o usuário é admin, 1 representa admin
+        
+        List Usuario = null;
+        Usuario = FuncoesJPA.Selecionar(Usuario.class, parametros);
+        
+        return !Usuario.isEmpty();
+    }
+    
 }

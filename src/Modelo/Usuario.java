@@ -7,6 +7,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.swing.JOptionPane;
@@ -14,7 +15,7 @@ import org.json.simple.JSONObject;
 
 @Entity
 public class Usuario extends ObjetoBase implements Serializable{
-    
+    @Column(unique=true)
     private String nome;
     private String login;
     private String senha;
