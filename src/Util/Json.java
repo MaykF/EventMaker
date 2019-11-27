@@ -3,66 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Persistencia;
+package Util;
 
+import Visao.TelaConfiguracao;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /**
  *
  * @author Maycon
  */
-public class FabricaJPA {
-
-    private static EntityManagerFactory Fabrica = null;
-    private static final String nomeUndPerstencia = "eventmakerpu";
-    private static Map <String, String> properties = new HashMap<String, String>();
+public class Json {
     
-    public FabricaJPA() {
-        
-        try {
-            this.ImportaJSON();            
-            Fabrica = Persistence.createEntityManagerFactory(nomeUndPerstencia,properties);
-            
-        } catch (ParseException ex) {
-            Logger.getLogger(FabricaJPA.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public static EntityManager getManager() {
-        
-        try {
-            if (Fabrica == null) {
-                FabricaJPA CONEXAOABERTA = new FabricaJPA();
-                System.out.println("Fabrica JPA aberta!");
-            }  
-                      
-            return Fabrica.createEntityManager(properties);
-        } catch (Exception e) {
-            System.err.println("Erro ao abrir conexão JPA ou criar gerenciador: " + e.getMessage());
-            return null;
-        }        
-    }
-    
-    public static void FecharFabrica(){
-        Fabrica.close();
-    }
-    
-    public void ImportaJSON() throws org.json.simple.parser.ParseException{
+    public static Map ImportaJSON(Map properties) throws org.json.simple.parser.ParseException{
     
         JSONObject jsonfile;
         JSONParser parser = new JSONParser();
@@ -99,17 +60,21 @@ public class FabricaJPA {
             e.printStackTrace();
         }
 
-        
-        
-    }
-
-    public Map getProperties() {
         return properties;
-    }
-
-    public void setProperties(Map properties) {
-        FabricaJPA.properties = properties;
+        
     }
     
-    
+    public static void GeraJSON(JSONObject jsonfile){
+                
+        try {
+            FileWriter writefile = null;            
+            
+            writefile = new FileWriter("configbd.json");
+            writefile.write(jsonfile.toJSONString());
+            writefile.close();
+        } catch (IOException ex) {
+            Logger.getLogger(TelaConfiguracao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 }

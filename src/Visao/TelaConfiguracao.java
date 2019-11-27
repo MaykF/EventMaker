@@ -5,6 +5,7 @@
  */
 package Visao;
 
+import Util.Xml;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -13,6 +14,7 @@ import java.lang.reflect.Field;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.xml.transform.TransformerConfigurationException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -234,30 +236,15 @@ public class TelaConfiguracao extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
-        JSONObject jsonfile = new JSONObject();
-        jsonfile.put("servidor", jTextFieldServidor.getText());
-        jsonfile.put("porta", jTextFieldPorta.getText());
-        jsonfile.put("nomebd", jTextFieldNomeBD.getText());
-        jsonfile.put("usuariobd", jTextFieldUsuarioBD.getText());
-        jsonfile.put("senhabd", jTextFieldSenhaBD.getText());
-        
-        GeraJSON(jsonfile);
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    public static void GeraJSON(JSONObject jsonfile){
-                
         try {
-            FileWriter writefile = null;            
-            
-            writefile = new FileWriter("configbd.json");
-            writefile.write(jsonfile.toJSONString());
-            writefile.close();
-        } catch (IOException ex) {
+       
+            Xml.GeraArquivoConexao(jTextFieldServidor.getText(),Integer.valueOf(jTextFieldPorta.getText()), jTextFieldNomeBD.getText(), jTextFieldUsuarioBD.getText(), jTextFieldSenhaBD.getText());
+        } catch (TransformerConfigurationException ex) {
             Logger.getLogger(TelaConfiguracao.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     
     public void ImportaJSON() throws org.json.simple.parser.ParseException{
     

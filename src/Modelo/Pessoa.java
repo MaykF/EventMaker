@@ -96,11 +96,13 @@ public class Pessoa extends ObjetoBase implements Serializable{
 
     @Override
     public ObjetoBase toObjeto(JSONObject jsonfile) {
+        this.setId(0);
         this.setNome((String) jsonfile.get("nome"));
         this.setCPF((String) jsonfile.get("CPF"));
         this.setRG((String) jsonfile.get("RG"));
         this.setCidade((String) jsonfile.get("cidade"));
         this.setEmail((String) jsonfile.get("email"));
+        this.setEndereco((String) jsonfile.get("endereco"));
         this.setTelefone((String) jsonfile.get("telefone"));
         this.setNumMatricula((String) jsonfile.get("nummatricula"));
         
@@ -111,12 +113,13 @@ public class Pessoa extends ObjetoBase implements Serializable{
     public JSONObject toJSONObject() {
         
         JSONObject jsonfile = new JSONObject();
-        
+        jsonfile.put("id", 0);
         jsonfile.put("nome", this.getNome());
         jsonfile.put("CPF", this.getCPF());
         jsonfile.put("RG", this.getRG());
         jsonfile.put("cidade", this.getCidade());
         jsonfile.put("email", this.getEmail());
+        jsonfile.put("endereco", this.getEndereco());
         jsonfile.put("telefone", this.getTelefone());
         jsonfile.put("nummatricula", this.getNumMatricula());
         
