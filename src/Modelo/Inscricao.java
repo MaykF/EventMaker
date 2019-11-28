@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -71,11 +70,12 @@ public class Inscricao extends ObjetoBase implements Serializable{
             ControllerPessoa P = new ControllerPessoa();
             
             SimpleDateFormat ddMMyyyy = new SimpleDateFormat("dd/MM/yyyy");
-            JOptionPane.showMessageDialog(null, (String) jsonfile.get("codpessoa"));
             this.setPessoa(P.ConsultaPessoa((String) jsonfile.get("codpessoa")));
             this.setEvento(E.ConsultaEvento((String) jsonfile.get("codevento")));           
             this.setUsuario(ControllerUsuario.RecuperaPorLogin((String) jsonfile.get("usuario")));  // RECUPERA O USUARIO DE ACORDO COM O NOME
+            JOptionPane.showMessageDialog(null, ddMMyyyy.parse(jsonfile.get("data").toString()));
             this.setDatainscricao(ddMMyyyy.parse(jsonfile.get("data").toString()));
+            
             
             return this;
         } catch (ParseException ex) {
@@ -90,9 +90,12 @@ public class Inscricao extends ObjetoBase implements Serializable{
         JSONObject jsonfile = new JSONObject();
         jsonfile.put("codpessoa", this.getPessoa().getId());
         jsonfile.put("codevento", this.getEvento().getId());
-        jsonfile.put("usuario", this.getUsuario().getNome());
+        jsonfile.put("usuario", this.getUsuario().getLogin());
         jsonfile.put("data", this.datainscricao);
         
         return jsonfile;
     }
+    
+    
+    
 }

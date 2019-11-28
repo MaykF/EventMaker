@@ -12,7 +12,9 @@ import java.awt.AWTKeyStroke;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Date;
 import java.util.HashSet;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.json.simple.JSONObject;
 
@@ -90,7 +92,7 @@ public class TelaInscricao extends javax.swing.JFrame {
         json.put("codpessoa", jTextFieldCodPessoa.getText());
         json.put("codevento", jTextFieldCodEvento.getText());
         json.put("usuario", jTextFieldUsuarioInscricao.getText());
-        json.put("data", jTextFieldNomePessoa.getText());
+        json.put("data", ((JTextField) this.DataInscricao.getDateEditor().getUiComponent()).getText());
         
         ControllerInscricao C = new ControllerInscricao();
         C.Salvar(json);
@@ -103,13 +105,16 @@ public class TelaInscricao extends javax.swing.JFrame {
         JSONObject jsonInsc;
                
         jsonInsc = I.Recuperar(Integer.valueOf(jTextFieldCodInscricao.getText()));
-    
-        jTextFieldCodPessoa.setText(String.valueOf(jsonInsc.get("codpessoa")));
-        jTextFieldCodEvento.setText(String.valueOf(jsonInsc.get("codevento")));
-        jTextFieldUsuarioInscricao.setText(String.valueOf(jsonInsc.get("usuario")));  
+        if(jsonInsc != null){
+            jTextFieldCodPessoa.setText(String.valueOf(jsonInsc.get("codpessoa")));
+            jTextFieldCodEvento.setText(String.valueOf(jsonInsc.get("codevento")));
+            jTextFieldUsuarioInscricao.setText(String.valueOf(jsonInsc.get("usuario")));
+            DataInscricao.setDate((Date) jsonInsc.get("data"));
         
-        this.PreenchePessoa();
-        this.PreencheEvento();
+            this.PreenchePessoa();
+            this.PreencheEvento();
+        }else
+            JOptionPane.showMessageDialog(null, "Codigo nao encontrado");
     }
     
     private void PreenchePessoa(){
@@ -392,7 +397,10 @@ public class TelaInscricao extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirActionPerformed
-        
+        ControllerInscricao I = new ControllerInscricao();
+        if(JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir a inscrição " + jTextFieldCodInscricao.getText()) == 0){
+            I.Excluir(Integer.valueOf(jTextFieldCodInscricao.getText()));
+        }
     }//GEN-LAST:event_ExcluirActionPerformed
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
