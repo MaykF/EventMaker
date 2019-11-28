@@ -74,4 +74,17 @@ public class ControllerUsuario extends ControllerBase{
         return !Usuario.isEmpty();
     }
     
+    public static Usuario RecuperaPorLogin(String login){
+        Usuario uRetorno = new Usuario();
+    
+        String[][] parametros = new String[1][2];
+        parametros[0][0] = "login";
+        parametros[0][1] = "'" + login + "'";
+        
+        List Usuario = null;
+        Usuario = FuncoesJPA.Selecionar(Usuario.class, parametros);
+        
+        return (Usuario) Usuario.get(0); // RETORNA O USUARIO ENCONTRADO, COMO O LOGIN É UMA UNIQUE SEMPRE RETORNARÁ SOMENTE UM REGISTRO
+    }
+    
 }

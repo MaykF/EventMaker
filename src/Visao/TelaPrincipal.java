@@ -143,6 +143,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu2.setText("Manutenção");
 
         jMenuItem4.setText("Inscrição");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem4);
 
         jMenuItem5.setText("Config Banco");
@@ -202,6 +207,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        TelaInscricao telainscricao = new TelaInscricao(jLabelUsuarioLogado.getText());
+        telainscricao.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void customizeMenuBar(JMenuBar menuBar) {
 

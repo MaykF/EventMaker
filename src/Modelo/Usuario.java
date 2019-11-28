@@ -17,6 +17,7 @@ import org.json.simple.JSONObject;
 public class Usuario extends ObjetoBase implements Serializable{
     @Column(unique=true)
     private String nome;
+    @Column(unique=true)
     private String login;
     private String senha;
     private boolean isadmin;

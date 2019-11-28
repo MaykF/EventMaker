@@ -1,6 +1,8 @@
 package Controller;
 
+import Modelo.ObjetoBase;
 import Modelo.Pessoa;
+import Persistencia.PersistenciaJPA;
 
 public class ControllerPessoa extends ControllerBase{
 
@@ -9,5 +11,9 @@ public class ControllerPessoa extends ControllerBase{
         objetoControle = new Pessoa();
     }
     
+    public Pessoa ConsultaPessoa(String codigo){
+        PersistenciaJPA<ObjetoBase> DAO = new PersistenciaJPA(classeObjetoControle);
+        return (Pessoa) DAO.recuperar(Integer.valueOf(codigo));
+    }
     
 }
