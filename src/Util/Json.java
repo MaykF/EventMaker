@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Util;
 
 import Visao.TelaConfiguracao;
@@ -17,10 +13,6 @@ import javax.swing.JOptionPane;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-/**
- *
- * @author Maycon
- */
 public class Json {
     
     public static Map ImportaJSON(Map properties) throws org.json.simple.parser.ParseException{

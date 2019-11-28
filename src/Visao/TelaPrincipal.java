@@ -196,7 +196,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ControllerUsuario controllerUsuario = new ControllerUsuario();
         
         if(ControllerUsuario.ValidaAdm(jLabelUsuarioLogado.getText())){
-            new TelaConfigBanco().setVisible(true);
+            new TelaConfiguracao().setVisible(true);
         }else{
             JOptionPane.showMessageDialog(null, "Somente usuários administradores podem alterar a configuração do banco de dados");       
         }
