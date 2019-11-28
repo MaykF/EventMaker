@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -94,7 +95,4 @@ public class Inscricao extends ObjetoBase implements Serializable{
         
         return jsonfile;
     }
-    
-    
-    
 }

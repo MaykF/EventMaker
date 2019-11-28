@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Modelo;
 
 import java.io.Serializable;
@@ -18,11 +13,6 @@ import javax.persistence.Temporal;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.RootPaneUI;
 
-
-/**
- *
- * @author Maycon
- */
 @Entity
 public class Evento extends ObjetoBase implements Serializable{
     
@@ -85,8 +75,6 @@ public class Evento extends ObjetoBase implements Serializable{
         this.termino = termino;
     }
 
-
-
     public ObjetoBase toObjeto(JSONObject jsonfile) {
         try {
             SimpleDateFormat ddMMyyyy = new SimpleDateFormat("dd/MM/yyyy");
@@ -104,8 +92,7 @@ public class Evento extends ObjetoBase implements Serializable{
         }
         return null;
     }
-
-    
+ 
     public JSONObject toJSONObject() {
         
         JSONObject jsonfile = new JSONObject();
