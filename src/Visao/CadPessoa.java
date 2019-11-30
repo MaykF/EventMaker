@@ -1,6 +1,8 @@
 package Visao;
 
 import Controller.ControllerPessoa;
+import Util.Util;
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.Iterator;
 import javax.persistence.RollbackException;
@@ -77,7 +79,6 @@ public class CadPessoa extends javax.swing.JFrame {
         Nome = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        RG = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         End = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -96,6 +97,9 @@ public class CadPessoa extends javax.swing.JFrame {
         CPF = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        RG = new javax.swing.JFormattedTextField();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -104,6 +108,8 @@ public class CadPessoa extends javax.swing.JFrame {
                 formWindowOpened(evt);
             }
         });
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setText("Codigo");
 
@@ -120,12 +126,6 @@ public class CadPessoa extends javax.swing.JFrame {
         jLabel3.setText("CPF");
 
         jLabel4.setText("RG");
-
-        RG.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                RGKeyPressed(evt);
-            }
-        });
 
         jLabel5.setText("Endereço");
 
@@ -149,6 +149,9 @@ public class CadPessoa extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 TelKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TelKeyTyped(evt);
+            }
         });
 
         jLabel8.setText("E-mail");
@@ -165,6 +168,9 @@ public class CadPessoa extends javax.swing.JFrame {
         Matricula.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 MatriculaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                MatriculaKeyTyped(evt);
             }
         });
 
@@ -208,6 +214,11 @@ public class CadPessoa extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        CPF.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                CPFCaretUpdate(evt);
+            }
+        });
         CPF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 CPFKeyPressed(evt);
@@ -240,15 +251,45 @@ public class CadPessoa extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(2).setResizable(false);
         }
 
+        try {
+            RG.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(102, 102, 255));
+        jLabel10.setText("Cadastro de Pessoa");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(129, 129, 129)
+                .addComponent(jLabel10)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10)
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
                         .addComponent(Novo)
                         .addGap(18, 18, 18)
                         .addComponent(Salvar)
@@ -268,12 +309,16 @@ public class CadPessoa extends javax.swing.JFrame {
                                 .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(RG, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(Id, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                                    .addComponent(jLabel4))
-                                .addGap(18, 18, 18)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel1)
+                                            .addComponent(Id)
+                                            .addComponent(jLabel4))
+                                        .addGap(18, 18, 18))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(RG, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel2)
@@ -296,11 +341,13 @@ public class CadPessoa extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(Matricula)))))
                 .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -315,9 +362,7 @@ public class CadPessoa extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(RG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Cidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Cidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -335,12 +380,14 @@ public class CadPessoa extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(RG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26)
+                .addGap(32, 32, 32)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -369,9 +416,16 @@ public class CadPessoa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
+        String cpf = this.CPF.getText();
+        if (!Util.validar(cpf)) {
+            this.CPF.requestFocus();
+            this.visaoController.trocar(false);
+            JOptionPane.showMessageDialog(rootPane, "CPF inválido!");
+            return;
+        }
         if (atualizando) {
             JSONObject json =  new JSONObject();
-            json.put("CPF", CPF.getText());
+            json.put("CPF", cpf);
             json.put("RG", RG.getText());
             json.put("cidade", Cidade.getText());
             json.put("email", Email.getText());
@@ -417,12 +471,6 @@ public class CadPessoa extends javax.swing.JFrame {
         this.visaoController.trocar(true);
         Editar(false);
     }//GEN-LAST:event_formWindowOpened
-
-    private void RGKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_RGKeyPressed
-        if(evt.getKeyCode() == evt.VK_ENTER){
-            End.requestFocus();
-        }
-    }//GEN-LAST:event_RGKeyPressed
 
     private void CPFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CPFKeyPressed
         if(evt.getKeyCode() == evt.VK_ENTER){
@@ -500,6 +548,23 @@ public class CadPessoa extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ExcluirActionPerformed
 
+    private void CPFCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_CPFCaretUpdate
+        String cpf = this.CPF.getText();
+        this.CPF.setForeground(((Util.validar(cpf)) ? Color.GREEN : Color.RED));
+    }//GEN-LAST:event_CPFCaretUpdate
+
+    private void TelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TelKeyTyped
+        if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_TelKeyTyped
+
+    private void MatriculaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_MatriculaKeyTyped
+        if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_MatriculaKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -551,10 +616,11 @@ public class CadPessoa extends javax.swing.JFrame {
     private javax.swing.JTextField Matricula;
     private javax.swing.JTextField Nome;
     private javax.swing.JButton Novo;
-    private javax.swing.JTextField RG;
+    private javax.swing.JFormattedTextField RG;
     private javax.swing.JButton Salvar;
     private javax.swing.JTextField Tel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -564,6 +630,7 @@ public class CadPessoa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

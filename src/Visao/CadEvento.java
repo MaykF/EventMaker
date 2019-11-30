@@ -194,6 +194,8 @@ public class CadEvento extends javax.swing.JFrame {
         HoraInicio = new javax.swing.JFormattedTextField();
         HoraFim = new javax.swing.JFormattedTextField();
         jLabel9 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -201,6 +203,8 @@ public class CadEvento extends javax.swing.JFrame {
                 formWindowOpened(evt);
             }
         });
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setText("Nome do Evento");
 
@@ -330,14 +334,47 @@ public class CadEvento extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        HoraInicio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                HoraInicioKeyPressed(evt);
+            }
+        });
 
         try {
             HoraFim.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        HoraFim.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                HoraFimKeyPressed(evt);
+            }
+        });
 
         jLabel9.setText("Hora Fim");
+
+        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(102, 102, 255));
+        jLabel10.setText("Cadastro de Evento");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(120, 120, 120)
+                .addComponent(jLabel10)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10)
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -393,11 +430,13 @@ public class CadEvento extends javax.swing.JFrame {
                                             .addComponent(jLabel2))
                                         .addGap(0, 0, Short.MAX_VALUE)))))))
                 .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
@@ -545,7 +584,7 @@ public class CadEvento extends javax.swing.JFrame {
 
     private void LocalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_LocalKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            Desc.requestFocus();
+            HoraInicio.requestFocus();
         }
     }//GEN-LAST:event_LocalKeyPressed
 
@@ -560,6 +599,18 @@ public class CadEvento extends javax.swing.JFrame {
             Salvar.requestFocus();
         }
     }//GEN-LAST:event_DescKeyPressed
+
+    private void HoraInicioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_HoraInicioKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            HoraFim.requestFocus();
+        }
+    }//GEN-LAST:event_HoraInicioKeyPressed
+
+    private void HoraFimKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_HoraFimKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            Desc.requestFocus();
+        }
+    }//GEN-LAST:event_HoraFimKeyPressed
 
     /**
      * @param args the command line arguments
@@ -612,6 +663,7 @@ public class CadEvento extends javax.swing.JFrame {
     private javax.swing.JButton Novo;
     private javax.swing.JButton Salvar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -621,6 +673,7 @@ public class CadEvento extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
