@@ -12,6 +12,7 @@ import Persistencia.FuncoesJPA;
 import Persistencia.PersistenciaJPA;
 import java.util.List;
 import javax.swing.JOptionPane;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**

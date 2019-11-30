@@ -41,6 +41,11 @@ public class PersistenciaJPA<T extends ObjetoBase> {
         return (List<T>) FuncoesJPA.Selecionar(classePersistente);  
     }
     
+    public List<T> recuperarTodos(String[][] parametros){
+        return (List<T>) FuncoesJPA.Selecionar(classePersistente,parametros);  
+    }
+    
+    
     public int Count(){
         return FuncoesJPA.Count(classePersistente);
     }

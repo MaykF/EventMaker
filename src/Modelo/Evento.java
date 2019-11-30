@@ -8,12 +8,15 @@ import org.json.simple.JSONObject;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.RootPaneUI;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Evento extends ObjetoBase implements Serializable{
     
     private String nome;

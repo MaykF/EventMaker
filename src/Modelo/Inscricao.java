@@ -13,16 +13,20 @@ import javax.persistence.Temporal;
 import org.json.simple.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.swing.JOptionPane;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Inscricao extends ObjetoBase implements Serializable{
 
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date datainscricao;  // ARMAZENAR A DATA DE GRAVAÇÃO DO EVENTO
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Evento evento;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Pessoa pessoa;  // PESSOA INSCRITA NO EVENTO  
     @ManyToOne
     private Usuario usuario; // USUARIO QUE REALIZADOU A INSCRICAO OU SEJA QUE FOI LOGADO   
@@ -88,6 +92,7 @@ public class Inscricao extends ObjetoBase implements Serializable{
         //JSONObject jsonfileU = U.Recuperar(this.getUsuario());  // Joga o usuario retornado em um jsonfile
         
         JSONObject jsonfile = new JSONObject();
+        jsonfile.put("id", this.getId());
         jsonfile.put("codpessoa", this.getPessoa().getId());
         jsonfile.put("codevento", this.getEvento().getId());
         jsonfile.put("usuario", jsonfile.get("login") );    // retorna o LOGIN do usuario contido no json file

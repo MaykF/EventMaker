@@ -27,6 +27,7 @@ public class TelaInscricao extends javax.swing.JFrame {
     
     private VisaoController visaoController = null;
     boolean atualizando=false;
+    private String usuario;
     
     /**
      * Creates new form TelaInscricao
@@ -49,8 +50,35 @@ public class TelaInscricao extends javax.swing.JFrame {
             }
         });
         Keypress_jDateChoooser();
+        this.usuario = usuario;
         jTextFieldUsuarioInscricao.setText(usuario);
         jTextFieldUsuarioInscricao.setEnabled(false);
+    }
+    
+    // CONSTRUTOR UTILIZADO PELA TELA DE CONSULTA
+    public TelaInscricao(String usuario, int CodigoInscricao){
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.visaoController = new VisaoController(Novo, Salvar, Cancelar, Editar, Excluir);
+        ((JTextField) this.DataInscricao.getDateEditor().getUiComponent()).addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent ke) {               
+            }
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {               
+            }
+        });
+        Keypress_jDateChoooser();
+        this.usuario = usuario;
+        jTextFieldUsuarioInscricao.setEnabled(false);
+        jTextFieldUsuarioInscricao.setText(usuario);    
+        jTextFieldCodInscricao.setText(String.valueOf(CodigoInscricao));
+        this.ConsultaInscricao();
     }
 
     /**
@@ -60,7 +88,7 @@ public class TelaInscricao extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
 
-        private void Keypress_jDateChoooser() {
+    private void Keypress_jDateChoooser() {
         HashSet<AWTKeyStroke> conjForward = new HashSet<AWTKeyStroke>(DataInscricao.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
         conjForward.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_ENTER, 0));
         DataInscricao.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, conjForward);
@@ -181,6 +209,11 @@ public class TelaInscricao extends javax.swing.JFrame {
         });
 
         jButtonConsultaInscrição.setText("?");
+        jButtonConsultaInscrição.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConsultaInscriçãoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -444,6 +477,12 @@ public class TelaInscricao extends javax.swing.JFrame {
             jTextFieldCodEvento.requestFocus();
         }
     }//GEN-LAST:event_jTextFieldNomePessoaKeyPressed
+
+    private void jButtonConsultaInscriçãoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConsultaInscriçãoActionPerformed
+        ConsultaInscricao C = new ConsultaInscricao(this.usuario);
+        this.setVisible(false);
+        C.setVisible(true);
+    }//GEN-LAST:event_jButtonConsultaInscriçãoActionPerformed
 
     /**
      * @param args the command line arguments

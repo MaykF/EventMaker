@@ -18,9 +18,14 @@ OK    RF5 – LOGIN Descrição:  O sistema deve permitir que usuários cadastra
  
 OK    RF6 – Configuração de banco de dados Descrição:  Deve ser permitido ao usuário administrador fazer a configuração da localização do banco de dados.  Versão: 1.0 
  
-    RF7 – Consulta de inscrição por evento Descrição:  O sistema permitir filtrar as inscrições por evento, data de inscrição e participante. Versão: 1.0 
+    RF7 – Consulta de inscrição por evento 
+        Descrição:  O sistema permitir filtrar as inscrições por evento, data de inscrição e participante. Versão: 1.0 
  
-    RF8 – Credenciamento Descrição:  O sistema deva realizar o credenciamento de uma pessoa em um evento. Deve ser registrado a data/hora que o credenciamento ocorreu. O credenciamento deve poder ser feito através do número do CPF, RG ou nome. O usuário deve poder configurar o formato por onde o credenciamento será feito. Versão: 1.0 
+    RF8 – Credenciamento 
+        Descrição:  O sistema deva realizar o credenciamento de uma pessoa em um evento. 
+        Deve ser registrado a data/hora que o credenciamento ocorreu. 
+        O credenciamento deve poder ser feito através do número do CPF, RG ou nome. 
+        O usuário deve poder configurar o formato por onde o credenciamento será feito. Versão: 1.0 
  
     RF9 – Consulta de credenciados Descrição:  O sistema deve permitir a consulta de pessoas credenciadas em um determinado evento e período. Versão: 1.0 
  
@@ -58,7 +63,8 @@ OK    BR6) O sistema deve respeitar a capacidade de cada evento e bloquear as in
  
 5 
 5. Regras de interface (Interface Rules) 
-5.1. Regras de Interface BR1) Na tela de gestão de eventos os campos de data/hora de início e término devem ser obrigatórios. 
+5.1. Regras de Interface 
+    BR1) Na tela de gestão de eventos os campos de data/hora de início e término devem ser obrigatórios. 
     BR2) O campo CPF e nome devem ser obrigatório na interface de gestão de pessoas. 
     BR3) A interface de inscrição deve permitir fazer consultas por: Evento, nome do participante, CPF do participante, Matrícula do participante. 
     BR4) A interface de credenciamento deve fazer a consulta da inscrição do participante por nome do participante ou CPF do participante ou matrícula do participante, dando ao usuário a possibilidade de escolha. 

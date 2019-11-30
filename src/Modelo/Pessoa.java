@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import org.json.simple.JSONObject;
 
@@ -18,6 +20,7 @@ import org.json.simple.JSONObject;
  * @author Maycon
  */
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Pessoa extends ObjetoBase implements Serializable{
     
     private String nome;
