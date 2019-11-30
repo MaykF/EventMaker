@@ -70,7 +70,7 @@ public class Inscricao extends ObjetoBase implements Serializable{
             this.setPessoa(P.ConsultaPessoa((String) jsonfile.get("codpessoa")));
             this.setEvento(E.ConsultaEvento((String) jsonfile.get("codevento")));
             this.setUsuario(ControllerUsuario.RecuperaPorLogin((String) jsonfile.get("usuario")));
-            JOptionPane.showMessageDialog(null, ddMMyyyy.parse(jsonfile.get("data").toString()));
+            //JOptionPane.showMessageDialog(null, ddMMyyyy.parse(jsonfile.get("data").toString()));
             this.setDatainscricao(ddMMyyyy.parse(jsonfile.get("data").toString()));
             
             return this;
