@@ -1,7 +1,12 @@
 
 package Util;
 
+import Controller.ControllerEvento;
+import Controller.ControllerInscricao;
+import Controller.ControllerPessoa;
+import Controller.ControllerUsuario;
 import Visao.TelaConfiguracao;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -9,13 +14,16 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.stage.FileChooser;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class Json {
-    
+    /*
     public static Map ImportaJSON(Map properties) throws org.json.simple.parser.ParseException{
     
         JSONObject jsonfile;
@@ -56,7 +64,7 @@ public class Json {
         return properties;
         
     }
-    
+    */
     public static void GeraJSON(JSONObject jsonfile){
                 
         try {
@@ -70,7 +78,7 @@ public class Json {
         }  
     }
     
-        public static void GeraJSON(String NomeArquivo, JSONArray jsonfile){
+    public static void GeraJSON(String NomeArquivo, JSONArray jsonfile){
                 
         try {
             FileWriter writefile = null;            
@@ -84,4 +92,42 @@ public class Json {
             Logger.getLogger(TelaConfiguracao.class.getName()).log(Level.SEVERE, null, ex);
         }  
     }
+    
+    public static void ImportaJSON(String TipoObjeto) throws IOException, ParseException{
+    
+        JSONObject jsonfile;
+        JSONParser parser = new JSONParser();
+            
+        try {
+            JFileChooser arquivo = new JFileChooser();
+            arquivo.showOpenDialog(arquivo);
+            jsonfile = (JSONObject) parser.parse(new FileReader(arquivo.getSelectedFile()));
+            
+            switch (TipoObjeto) {
+                case "Pessoas":
+                    ControllerPessoa P = new ControllerPessoa();
+                    P.Salvar(jsonfile);
+                    break;
+                case "Eventos":
+                    ControllerEvento E = new ControllerEvento();
+                    E.Salvar(jsonfile);
+                    break;
+                case "Usuarios":
+                    ControllerUsuario U = new ControllerUsuario();
+                    U.Salvar(jsonfile);
+                    break;
+                case "Inscricoes":
+                    ControllerInscricao I = new ControllerInscricao();
+                    I.Salvar(jsonfile);
+                    break;
+                default:
+                    break;
+            }
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Json.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    }
+    
 }
