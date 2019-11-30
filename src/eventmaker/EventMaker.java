@@ -26,8 +26,8 @@ public class EventMaker {
         FabricaJPA.propriedades = propriedades;
         
         
-        //EntityManagerFactory fabrica = Persistence.createEntityManagerFactory("eventmakerpu");
-        //EntityManager undPersist = FabricaJPA.getManager();
+        EntityManagerFactory fabrica = Persistence.createEntityManagerFactory("eventmakerpu");
+        EntityManager undPersist = FabricaJPA.getManager();
                 
         
         //RODAR PARA INSERIR USUARIO
@@ -39,7 +39,7 @@ public class EventMaker {
         jsonfile.put("isadmin", true);
         ControllerUsuario C = new ControllerUsuario();
         C.Salvar(jsonfile);
-        /*
+        
         JSONObject jsonfile = new JSONObject();
         jsonfile.put("nome", "Rodrigo");
         jsonfile.put("login", "dahora");
