@@ -87,4 +87,5 @@ public class ControllerUsuario extends ControllerBase{
         return (Usuario) Usuario.get(0); // RETORNA O USUARIO ENCONTRADO, COMO O LOGIN É UMA UNIQUE SEMPRE RETORNARÁ SOMENTE UM REGISTRO
     }
     
+    
 }

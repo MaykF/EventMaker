@@ -6,6 +6,7 @@
 package Controller;
 
 import Modelo.Inscricao;
+import Modelo.ObjetoBase;
 
 /**
  *

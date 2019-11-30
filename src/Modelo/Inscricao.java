@@ -5,13 +5,10 @@ import Controller.ControllerPessoa;
 import Controller.ControllerUsuario;
 import java.io.Serializable;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import org.json.simple.JSONObject;
 import java.text.SimpleDateFormat;
@@ -26,9 +23,10 @@ public class Inscricao extends ObjetoBase implements Serializable{
     @ManyToOne
     private Evento evento;
     @ManyToOne
-    private Pessoa pessoa;  // PESSOA INSCRITA NO EVENTO
-    @OneToOne
-    private Usuario usuario; // USUARIO QUE REALIZADOU A INSCRICAO OU SEJA QUE FOI LOGADO
+    private Pessoa pessoa;  // PESSOA INSCRITA NO EVENTO  
+    @ManyToOne
+    private Usuario usuario; // USUARIO QUE REALIZADOU A INSCRICAO OU SEJA QUE FOI LOGADO   
+    // O USUARIO FOI TROCADO PARA ARMAZENAR SOMENTE UM CODIGO
 
     public Date getDatainscricao() {
         return datainscricao;
@@ -68,34 +66,35 @@ public class Inscricao extends ObjetoBase implements Serializable{
         try {
             ControllerEvento E = new ControllerEvento();
             ControllerPessoa P = new ControllerPessoa();
-            
             SimpleDateFormat ddMMyyyy = new SimpleDateFormat("dd/MM/yyyy");
             this.setPessoa(P.ConsultaPessoa((String) jsonfile.get("codpessoa")));
-            this.setEvento(E.ConsultaEvento((String) jsonfile.get("codevento")));           
-            this.setUsuario(ControllerUsuario.RecuperaPorLogin((String) jsonfile.get("usuario")));  // RECUPERA O USUARIO DE ACORDO COM O NOME
+            this.setEvento(E.ConsultaEvento((String) jsonfile.get("codevento")));
+            this.setUsuario(ControllerUsuario.RecuperaPorLogin((String) jsonfile.get("usuario")));
             JOptionPane.showMessageDialog(null, ddMMyyyy.parse(jsonfile.get("data").toString()));
             this.setDatainscricao(ddMMyyyy.parse(jsonfile.get("data").toString()));
             
-            
             return this;
         } catch (ParseException ex) {
-            Logger.getLogger(Evento.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Inscricao.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"Erro durante construção do objeto inscrição " + ex);
+            return null;
         }
-        return this;
     }
 
     @Override
     public JSONObject toJSONObject() {
-   
+
+        ControllerUsuario U = new ControllerUsuario();          // Cria um controllerUsuario para recuperar o usuario 
+        //JSONObject jsonfileU = U.Recuperar(this.getUsuario());  // Joga o usuario retornado em um jsonfile
+        
         JSONObject jsonfile = new JSONObject();
         jsonfile.put("codpessoa", this.getPessoa().getId());
         jsonfile.put("codevento", this.getEvento().getId());
-        jsonfile.put("usuario", this.getUsuario().getLogin());
+        jsonfile.put("usuario", jsonfile.get("login") );    // retorna o LOGIN do usuario contido no json file
         jsonfile.put("data", this.datainscricao);
         
         return jsonfile;
     }
     
-    
-    
+
 }

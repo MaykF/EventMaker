@@ -77,4 +77,10 @@ public abstract class ControllerBase {
         }
     
     }
+    
+    public int Count(){
+        PersistenciaJPA<ObjetoBase> DAO = new PersistenciaJPA(classeObjetoControle);
+        
+        return DAO.Count();       
+    }
 }

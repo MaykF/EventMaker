@@ -182,7 +182,8 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonEntrarKeyPressed
 
     private void RealizarLogin(){
-        if(ControllerUsuario.EfetuarLogin(jTextFieldLogin.getText(),new String(jPasswordFieldSenha.getPassword()))){
+        String senha = jPasswordFieldSenha.getText();
+        if(ControllerUsuario.EfetuarLogin(jTextFieldLogin.getText(),senha)){
             this.setVisible(true);
             //this.hide();
             TelaPrincipal telaprincipal = new TelaPrincipal(jTextFieldLogin.getText());

@@ -2,7 +2,7 @@ package Visao;
 
 import Controller.ControllerEvento;
 import Controller.ControllerUsuario;
-import Modelo.Evento_;
+import Modelo.Evento;
 import java.awt.AWTKeyStroke;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;

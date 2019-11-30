@@ -5,10 +5,13 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.swing.JOptionPane;
 import org.json.simple.JSONObject;
@@ -21,8 +24,8 @@ public class Usuario extends ObjetoBase implements Serializable{
     private String login;
     private String senha;
     private boolean isadmin;
-    @OneToOne(mappedBy = "usuario")
-    private Inscricao inscricao;
+    //@OneToMany
+    //private List<Inscricao> inscricao;
 
     
     public String getNome() {
