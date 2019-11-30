@@ -229,7 +229,8 @@ public class ConsultaInscricao extends javax.swing.JFrame {
             parametros[0][1] = jTextFieldValorConsulta.getText();
         }else if(jComboBoxCampoConsulta.getSelectedIndex() == 2){
             parametros[0][0] = "datainscricao";
-            parametros[0][1] = DataInscricao.toString();
+            parametros[0][1] = ((JTextField) this.DataInscricao.getDateEditor().getUiComponent()).getText();
+            JOptionPane.showMessageDialog(null,((JTextField) this.DataInscricao.getDateEditor().getUiComponent()).getText() );
         }
     
         return I.RecuperarTodos(parametros);
@@ -239,7 +240,7 @@ public class ConsultaInscricao extends javax.swing.JFrame {
                        
         JSONArray dados = this.parametrosdeconsulta();    // CHAMA A FUNÇÃO PARA VERIFICAR OS PARAMETROS ESCOLHIDOS
         
-        JOptionPane.showMessageDialog(null, dados);
+        //JOptionPane.showMessageDialog(null, dados);
         DefaultTableModel modelo = (DefaultTableModel) jTableInscricoes.getModel();
         while (jTableInscricoes.getModel().getRowCount() > 0) {             // REMOVE POSSIVEIS ITENS NA TABELA
             modelo.removeRow(0);
@@ -250,7 +251,7 @@ public class ConsultaInscricao extends javax.swing.JFrame {
         while (i.hasNext()) {
             JSONObject jsonObj = (JSONObject) i.next();
             Object[] tableData = new Object[]{jsonObj.get("id"), jsonObj.get("data").toString(), jsonObj.get("codevento"),
-                jsonObj.get("codpessoa"), jsonObj.get("usuario")};
+                jsonObj.get("codpessoa"), jsonObj.get("codusuario")};
             System.out.println(Arrays.toString(tableData));
             if (!tableData[0].equals("-1")) {
                 modelo.addRow(tableData);
