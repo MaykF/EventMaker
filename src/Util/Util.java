@@ -54,4 +54,21 @@ public class Util {
             return (false);
         }
     }
+    /*public void filtrar(String[] txt, int[] coluna) {
+        try {
+            TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>((DefaultTableModel) jTable1.getModel());
+            if (txt.length == 1) {
+                sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txt[0] + "(i?)", coluna[0]));
+            }
+            if (txt.length == 2) {
+                sorter.setRowFilter(RowFilter.andFilter(Arrays.asList(RowFilter.regexFilter("(?i)" + txt[0] + "(i?)", coluna[0]), RowFilter.regexFilter("(?i)" + txt[1] + "(i?)", coluna[1]))));
+            }
+            if (txt.length == 3) {
+                sorter.setRowFilter(RowFilter.andFilter(Arrays.asList(RowFilter.regexFilter("(?i)" + txt[0] + "(i?)", coluna[0]), RowFilter.regexFilter("(?i)" + txt[1] + "(i?)", coluna[1]),RowFilter.regexFilter("(?i)" + txt[2] + "(i?)", coluna[2]))));
+            }
+            jTable1.setRowSorter(sorter);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }*/
 }
