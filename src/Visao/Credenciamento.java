@@ -139,9 +139,7 @@ public class Credenciamento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
-        if(evt.getKeyCode() == evt.VK_NUMPAD0 || evt.getKeyCode() == evt.VK_0){
-            new Pessoas().setVisible(true);
-        }
+
     }//GEN-LAST:event_jTextField2KeyPressed
 
     /**
