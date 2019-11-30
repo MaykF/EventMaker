@@ -1,4 +1,2 @@
 jdbc:mysql://localhost:3306/eventmakerbd
 root
-123456
-

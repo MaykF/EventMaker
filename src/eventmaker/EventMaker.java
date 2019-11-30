@@ -24,8 +24,6 @@ public class EventMaker {
         propriedades.put("javax.persistence.jdbc.password", arquivo[2]);
         
         FabricaJPA.propriedades = propriedades;
-        TelaLogin telalogin = new TelaLogin();
-        telalogin.setVisible(true);
         
         
         EntityManagerFactory fabrica = Persistence.createEntityManagerFactory("eventmakerpu");
@@ -50,6 +48,9 @@ public class EventMaker {
         
         ControllerUsuario C = new ControllerUsuario();
         C.Salvar(jsonfile);*/
+        
+        TelaLogin telalogin = new TelaLogin();
+        telalogin.setVisible(true);
         
     }
     

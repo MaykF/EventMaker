@@ -24,7 +24,12 @@ OK    RF6 – Configuração de banco de dados Descrição:  Deve ser permitido 
  
     RF9 – Consulta de credenciados Descrição:  O sistema deve permitir a consulta de pessoas credenciadas em um determinado evento e período. Versão: 1.0 
  
-    RF10 – Painel de informações Descrição:  O sistema deve apresentar um painel de informações que mostram as seguintes informações: a) Total de eventos cadastrados; b) Total de pessoas cadastradas; c) Total de inscrições realizadas; d) Total de pessoas credenciadas realizadas (presenças) e) Percentual de pessoas credenciadas e relação as inscrições Para os itens C, D e E deve ser possível filtrar um evento ou considerar todos. Versão: 1.0 
+    RF10 – Painel de informações Descrição:  O sistema deve apresentar um painel de informações que mostram as seguintes informações: 
+    OK    a) Total de eventos cadastrados; 
+    OK    b) Total de pessoas cadastradas; 
+    OK    c) Total de inscrições realizadas; 
+        d) Total de pessoas credenciadas realizadas (presenças) 
+        e) Percentual de pessoas credenciadas e relação as inscrições Para os itens C, D e E deve ser possível filtrar um evento ou considerar todos. Versão: 1.0 
  
     RF11 – Relatório de participação - analítico Descrição:  O sistema deve gerar um relatório de participação do evento com as seguintes colunas: Nome do evento, nome do participante, número do CPF, número da matrícula do participante, Data da inscrição no evento e Data/hora do credenciamento. O relatório deve possibilitar que o usuário faça os seguintes filtros: evento, data inicial do credenciamento e data final do credenciamento. O relatório deve quebrar por dia. Versão: 1.0 
  
@@ -45,8 +50,8 @@ OK    BR1) Apenas usuários administradores podem fazer o cadastro de eventos.
     BR2) Apenas usuários administradores podem fazer importações e exportações. 
 OK    BR3) Apenas usuários administradores podem gerir usuários. 
 OK    BR4) Não deve ser possível cadastrar pessoas com CPF e Matrícula repetidos. 
-    BR5) Não deve ser possível uma mesma pessoa se inscrever mais de uma vez em um evento. 
-    BR6) O sistema deve respeitar a capacidade de cada evento e bloquear as inscrições caso a capacidade máxima tenha sido atingida. 
+OK    BR5) Não deve ser possível uma mesma pessoa se inscrever mais de uma vez em um evento. 
+OK    BR6) O sistema deve respeitar a capacidade de cada evento e bloquear as inscrições caso a capacidade máxima tenha sido atingida. 
     BR7) O sistema não deve permitir a inscrição de uma pessoa em um evento quando a data atual for superior a data de término do evento. 
  
 

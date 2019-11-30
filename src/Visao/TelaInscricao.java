@@ -95,7 +95,12 @@ public class TelaInscricao extends javax.swing.JFrame {
         json.put("data", ((JTextField) this.DataInscricao.getDateEditor().getUiComponent()).getText());
         
         ControllerInscricao C = new ControllerInscricao();
-        C.Salvar(json);
+        if(C.SalvaInscricao(json)){
+            JOptionPane.showMessageDialog(null, "Inscrição realizada com sucesso");
+        }
+            
+            
+        this.LimparTela();
     
     }
     
@@ -241,6 +246,11 @@ public class TelaInscricao extends javax.swing.JFrame {
         jLabel2.setText("Pessoa");
 
         jTextFieldNomePessoa.setEditable(false);
+        jTextFieldNomePessoa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldNomePessoaKeyPressed(evt);
+            }
+        });
 
         jTextFieldCodPessoa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -398,6 +408,7 @@ public class TelaInscricao extends javax.swing.JFrame {
         if(JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir a inscrição " + jTextFieldCodInscricao.getText()) == 0){
             I.Excluir(Integer.valueOf(jTextFieldCodInscricao.getText()));
         }
+        this.LimparTela();
     }//GEN-LAST:event_ExcluirActionPerformed
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
@@ -417,14 +428,22 @@ public class TelaInscricao extends javax.swing.JFrame {
     private void jTextFieldCodPessoaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodPessoaKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             this.PreenchePessoa();
+            jTextFieldCodEvento.requestFocus();
         }
     }//GEN-LAST:event_jTextFieldCodPessoaKeyPressed
 
     private void jTextFieldCodEventoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodEventoKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             this.PreencheEvento();
+            this.DataInscricao.requestFocus();
         }
     }//GEN-LAST:event_jTextFieldCodEventoKeyPressed
+
+    private void jTextFieldNomePessoaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomePessoaKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            jTextFieldCodEvento.requestFocus();
+        }
+    }//GEN-LAST:event_jTextFieldNomePessoaKeyPressed
 
     /**
      * @param args the command line arguments

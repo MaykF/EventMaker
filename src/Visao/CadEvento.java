@@ -160,6 +160,7 @@ public class CadEvento extends javax.swing.JFrame {
         Editar(false);
         this.visaoController.trocar(true);
         this.preencher();
+        
     }
 
     @SuppressWarnings("unchecked")
