@@ -97,8 +97,6 @@ public class TelaInscricao extends javax.swing.JFrame {
         ControllerInscricao C = new ControllerInscricao();
         if(C.SalvaInscricao(json)){
             JOptionPane.showMessageDialog(null, "Inscrição realizada com sucesso");
-        }else{
-            JOptionPane.showMessageDialog(null, "A pessoa informada ja esta cadastrada nesse evento");
         }
             
             
