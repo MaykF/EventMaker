@@ -99,5 +99,21 @@ public abstract class ControllerBase {
         }
         return jsonAux;
     }
+        
+    public JSONArray RecuperarTodosEntre(int codIni, int codFim){
+        
+        List<ObjetoBase> dados;
+        //JSONObject jsonretorno = new JSONObject();
+        JSONArray jsonAux = new JSONArray();
+        
+        PersistenciaJPA<ObjetoBase> DAO = new PersistenciaJPA(classeObjetoControle);
+        dados = DAO.recuperarTodosEntre(codIni,codFim);
+        
+        for(int i = 0; i < dados.size(); i++){
+            //Stringretorno[i] = dados.get(i).toStringVetor();
+            jsonAux.add(dados.get(i).toJSONObject()); // i -> INDICE NUMERO DO REGISTRO RETORNO // objeto -> segundo parametro
+        }
+        return jsonAux;
+    }
     
 }

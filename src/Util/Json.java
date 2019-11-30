@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -66,7 +67,21 @@ public class Json {
             writefile.close();
         } catch (IOException ex) {
             Logger.getLogger(TelaConfiguracao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        }  
+    }
+    
+        public static void GeraJSON(String NomeArquivo, JSONArray jsonfile){
+                
+        try {
+            FileWriter writefile = null;            
+                       
+            writefile = new FileWriter(NomeArquivo);
+    
+            writefile.write(jsonfile.toJSONString());
+            
+            writefile.close();
+        } catch (IOException ex) {
+            Logger.getLogger(TelaConfiguracao.class.getName()).log(Level.SEVERE, null, ex);
+        }  
     }
 }

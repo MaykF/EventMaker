@@ -51,13 +51,6 @@ public class FuncoesJPA {
 	FecharTransacao(trans, true);        
     }
     
-    public static int Count(Class classe){
-        EntityManager trans = FabricaJPA.getManager();
-        String sJPQL = "select COUNT(c) from " + classe.getName() + " c";
-        Query minhaQuery = trans.createQuery(sJPQL);
-        return Integer.valueOf(minhaQuery.getSingleResult().toString());    // RETORNA O RESULTADO DO COUNT CONVERTENDO PARA O TIPO INTEIRO
-    }
-    
     public static Object recuperar(int chave, Class classe){
         EntityManager trans = FabricaJPA.getManager();
         //JOptionPane.showMessageDialog(null, classe.toString());
@@ -92,5 +85,23 @@ public class FuncoesJPA {
     
     public static List<?> Selecionar(Class classe){
         return Selecionar(classe, "");
+    }
+    
+        
+    public static int Count(Class classe){
+        EntityManager trans = FabricaJPA.getManager();
+        String sJPQL = "select COUNT(c) from " + classe.getName() + " c";
+        Query minhaQuery = trans.createQuery(sJPQL);
+        return Integer.valueOf(minhaQuery.getSingleResult().toString());    // RETORNA O RESULTADO DO COUNT CONVERTENDO PARA O TIPO INTEIRO
+    }
+    
+    public static List<?> SelecionarEntre(Class classe, int codIni, int codFim){                 
+
+        EntityManager trans = FabricaJPA.getManager();
+	String sJPQL = "select u from " + classe.getName() + " u where u.id between " + codIni + " and " + codFim;
+        //  JOptionPane.showMessageDialog(null, sJPQL);
+        Query minhaQuery = trans.createQuery(sJPQL);
+        return minhaQuery.getResultList();  
+        
     }
 }
