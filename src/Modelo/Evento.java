@@ -24,8 +24,27 @@ public class Evento extends ObjetoBase implements Serializable{
     private Date inicio;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date termino;
+    private String horaInicio;
+    private String horaFim;
     @OneToMany(mappedBy = "evento")
     private List<Inscricao> inscricoes;
+
+
+    public String getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(String horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public String getHoraFim() {
+        return horaFim;
+    }
+
+    public void setHoraFim(String horaFim) {
+        this.horaFim = horaFim;
+    }
 
     public String getNome() {
         return nome;
@@ -85,6 +104,8 @@ public class Evento extends ObjetoBase implements Serializable{
             this.setLocal((String) jsonfile.get("local"));
             this.setInicio(ddMMyyyy.parse(jsonfile.get("inicio").toString()));
             this.setTermino(ddMMyyyy.parse(jsonfile.get("termino").toString()));
+            this.setHoraInicio((String) jsonfile.get("horainicio"));
+            this.setHoraFim((String) jsonfile.get("horafim"));
             
             return this;
         } catch (ParseException ex) {
@@ -103,6 +124,8 @@ public class Evento extends ObjetoBase implements Serializable{
         jsonfile.put("local", this.getLocal());
         jsonfile.put("inicio", this.getInicio());
         jsonfile.put("termino", this.getTermino());
+        jsonfile.put("horainicio", this.getHoraInicio());
+        jsonfile.put("horafim", this.getHoraFim());
         
         return jsonfile;
     } 
