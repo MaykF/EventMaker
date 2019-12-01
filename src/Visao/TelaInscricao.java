@@ -163,7 +163,7 @@ public class TelaInscricao extends javax.swing.JFrame {
         JSONObject jsonEvento;
         
         jsonEvento = E.Recuperar(Integer.valueOf(jTextFieldCodEvento.getText()));
-        jTextFieldNomeEvento.setText((String) jsonEvento.get("descricao"));
+        jTextFieldNomeEvento.setText((String) jsonEvento.get("nome"));
     
     }
     

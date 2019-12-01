@@ -79,10 +79,10 @@
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="45" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jButtonConsulta" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jTextFieldValorConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBoxCampoConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButtonConsulta" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="DataInscricao" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -121,12 +121,44 @@
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="5" rowCount="0">
-                    <Column editable="true" title="Codigo Inscricao" type="java.lang.Object"/>
-                    <Column editable="true" title="Data Inscricao" type="java.lang.Object"/>
-                    <Column editable="true" title="Codigo Evento" type="java.lang.Object"/>
-                    <Column editable="true" title="Codigo Pessoa" type="java.lang.Object"/>
-                    <Column editable="true" title="Codigo Usuario" type="java.lang.Object"/>
+                    <Column editable="false" title="Codigo Inscricao" type="java.lang.Object"/>
+                    <Column editable="false" title="Data Inscricao" type="java.lang.Object"/>
+                    <Column editable="false" title="Codigo Evento" type="java.lang.Object"/>
+                    <Column editable="false" title="Codigo Pessoa" type="java.lang.Object"/>
+                    <Column editable="false" title="Codigo Usuario" type="java.lang.Object"/>
                   </Table>
+                </Property>
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                  <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                  </TableColumnModel>
+                </Property>
+                <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                  <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
             </Component>

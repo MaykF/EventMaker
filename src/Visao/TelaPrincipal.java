@@ -4,6 +4,7 @@ import Controller.ControllerEvento;
 import Controller.ControllerInscricao;
 import Controller.ControllerPessoa;
 import Controller.ControllerUsuario;
+import Util.HorarioUtil;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
@@ -39,6 +40,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         jLabelUsuarioLogado.setText(usuarioLogin);  // SETA O USUARIO LOGADO NO JLABEL CENTRAL INFERIOR
         this.mostrarHora();                         // MOSTRA HORA NA PARTE INFERIOR DA TELA
+        this.Contador();
         this.PreencheTotalEventos();                // FUNCOES PARA PREENCHEREM OS TOTAIS CADASTRAIS
         this.PreencheTotalInscricoes();
         this.PreencheTotalPessoas();
@@ -201,11 +203,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(298, 298, 298)
+                        .addGap(308, 308, 308)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelUsuarioLogado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                         .addComponent(jLabelHora, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -396,17 +398,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTextFieldTotalEventos.setText(String.valueOf(E.Count()));    
     }
     
-    private void PreencheTotalPessoas(){
+    public static void PreencheTotalPessoas(){
         ControllerPessoa P = new ControllerPessoa();
         jTextFieldTotalPessoas.setText(String.valueOf(P.Count()));
     }
     
-    private void PreencheTotalInscricoes(){
+    public void PreencheTotalInscricoes(){
         ControllerInscricao I = new ControllerInscricao();
         jTextFieldTotalInscrições.setText(String.valueOf(I.Count()));
     }
     
-    private void changeComponentColors(Component comp) {
+    public void changeComponentColors(Component comp) {
         comp.setBackground(Color.gray);
         comp.setForeground(Color.white);
     }
@@ -418,10 +420,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Thread thHora = horarioUtil;
         thHora.start();
     }
-
-    /**
-     * @param args the command line arguments
-     */
+    public void Contador() {
+        AtualizarContador contador = new AtualizarContador();
+        Thread cont = contador;
+        cont.start();
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -483,6 +486,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextFieldTotalEventos;
     private javax.swing.JTextField jTextFieldTotalInscrições;
-    private javax.swing.JTextField jTextFieldTotalPessoas;
+    public static javax.swing.JTextField jTextFieldTotalPessoas;
     // End of variables declaration//GEN-END:variables
 }

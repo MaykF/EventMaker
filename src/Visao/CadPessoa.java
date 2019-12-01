@@ -67,6 +67,44 @@ public class CadPessoa extends javax.swing.JFrame {
         Email.setEditable(edt);
         Matricula.setEditable(edt);
     }
+    private void Salvar(){
+        String cpf = this.CPF.getText();
+        if (!Util.validar(cpf)) {
+            this.CPF.requestFocus();
+            this.visaoController.trocar(false);
+            JOptionPane.showMessageDialog(rootPane, "CPF inválido!");
+            return;
+        }
+        if (atualizando) {
+            JSONObject json =  new JSONObject();
+            json.put("CPF", cpf);
+            json.put("RG", RG.getText());
+            json.put("cidade", Cidade.getText());
+            json.put("email", Email.getText());
+            json.put("endereco", End.getText());
+            json.put("nome", Nome.getText());
+            json.put("nummatricula", Matricula.getText());
+            json.put("telefone", Tel.getText());
+            pessoa.Salvar(json);
+        }else{
+            JSONObject json = new JSONObject();
+            json.put("id", 0);
+            json.put("CPF", CPF.getText());
+            json.put("RG", RG.getText());
+            json.put("cidade", Cidade.getText());
+            json.put("email", Email.getText());
+            json.put("endereco", End.getText());
+            json.put("nome", Nome.getText());
+            json.put("nummatricula", Matricula.getText());
+            json.put("telefone", Tel.getText());
+            pessoa.Salvar(json);
+        }
+        atualizando = false;
+        LimparTela();
+        Editar(false);
+        this.visaoController.trocar(true);
+        this.preencher();
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -187,6 +225,11 @@ public class CadPessoa extends javax.swing.JFrame {
                 SalvarActionPerformed(evt);
             }
         });
+        Salvar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                SalvarKeyPressed(evt);
+            }
+        });
 
         Cancelar.setText("Cancelar");
         Cancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -256,8 +299,13 @@ public class CadPessoa extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        RG.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                RGKeyPressed(evt);
+            }
+        });
 
-        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(102, 102, 255));
@@ -416,42 +464,7 @@ public class CadPessoa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
-        String cpf = this.CPF.getText();
-        if (!Util.validar(cpf)) {
-            this.CPF.requestFocus();
-            this.visaoController.trocar(false);
-            JOptionPane.showMessageDialog(rootPane, "CPF inválido!");
-            return;
-        }
-        if (atualizando) {
-            JSONObject json =  new JSONObject();
-            json.put("CPF", cpf);
-            json.put("RG", RG.getText());
-            json.put("cidade", Cidade.getText());
-            json.put("email", Email.getText());
-            json.put("endereco", End.getText());
-            json.put("nome", Nome.getText());
-            json.put("nummatricula", Matricula.getText());
-            json.put("telefone", Tel.getText());
-            pessoa.Salvar(json);
-        }else{
-            JSONObject json = new JSONObject();
-            json.put("id", 0);
-            json.put("CPF", CPF.getText());
-            json.put("RG", RG.getText());
-            json.put("cidade", Cidade.getText());
-            json.put("email", Email.getText());
-            json.put("endereco", End.getText());
-            json.put("nome", Nome.getText());
-            json.put("nummatricula", Matricula.getText());
-            json.put("telefone", Tel.getText());
-            pessoa.Salvar(json);
-        }
-        atualizando = false;
-        LimparTela();
-        Editar(false);
-        this.visaoController.trocar(true);
-        this.preencher();
+        this.Salvar();
     }//GEN-LAST:event_SalvarActionPerformed
 
     private void CPFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CPFKeyTyped
@@ -564,6 +577,18 @@ public class CadPessoa extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_MatriculaKeyTyped
+
+    private void RGKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_RGKeyPressed
+        if(evt.getKeyCode() == evt.VK_ENTER){
+            End.requestFocus();
+        }
+    }//GEN-LAST:event_RGKeyPressed
+
+    private void SalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SalvarKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            this.Salvar();
+        }
+    }//GEN-LAST:event_SalvarKeyPressed
 
     /**
      * @param args the command line arguments

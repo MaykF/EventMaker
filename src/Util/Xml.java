@@ -25,9 +25,6 @@ import org.xml.sax.SAXException;
 public class Xml {
     
     public static boolean GeraArquivoConexao(String Servidor, int porta, String nomeBD, String Usuario, String Senha) throws TransformerConfigurationException{
-        
-        
-        
         try {
             DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
