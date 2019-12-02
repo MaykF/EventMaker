@@ -15,6 +15,7 @@ import java.awt.event.KeyListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.logging.Level;
@@ -227,6 +228,27 @@ public class ConsultaInscricao extends javax.swing.JFrame {
         DataInscricao.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, conjForward);
     }
     
+    private JSONArray TratamentoComparaData(){                      // A COMPARAÇÃO DE DATAS NAO FUNCIONOU NEM A PORRETE NO BANCO DEPOIS DE HORAS SO CONSEGUI FAZER A COMPARAÇÃO APOS RETORNA DO BANCO O VALOR
+            ControllerInscricao I = new ControllerInscricao(); 
+            int dia,mes,ano;
+            JSONArray jsonarraytemp = new JSONArray();
+            jsonarraytemp = I.RecuperarTodos();
+            JSONObject jsonfile = new JSONObject();
+            dia = DataInscricao.getDate().getDate();
+            mes = DataInscricao.getDate().getMonth() +1;
+            ano = DataInscricao.getDate().getYear() +1900;
+            String aux = ano + "-" + mes + "-" + dia;
+                       
+            for(int i =0; i < jsonarraytemp.size(); i++){
+                jsonfile = (JSONObject) jsonarraytemp.get(i);
+                if(!aux.equals(String.valueOf(jsonfile.get("data")))){
+                    jsonarraytemp.remove(i);
+                }
+            }       
+    
+        return jsonarraytemp;
+    }
+    
     private JSONArray parametrosdeconsulta(){  
         ControllerInscricao I = new ControllerInscricao();  
  
@@ -240,18 +262,7 @@ public class ConsultaInscricao extends javax.swing.JFrame {
             parametros[0][0] = "evento_id";
             parametros[0][1] = jTextFieldValorConsulta.getText();
         }else if(jComboBoxCampoConsulta.getSelectedIndex() == 2){
-            parametros[0][0] = "datainscricao";
-            int dia,mes,ano;
-            dia = DataInscricao.getDate().getDay();
-            mes = DataInscricao.getDate().getMonth();
-            ano = DataInscricao.getDate().getYear();
-            dia+= 24;
-            mes+= 1;
-            ano+= 1900;
-            parametros[0][1] = String.valueOf("2019-11-30");
-            //DataInicio.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(modelo.getValueAt(jTable1.getSelectedRow(), 2).toString()));
-            //parametros[0][1] = ((JTextField) this.DataInscricao.getDateEditor().getUiComponent()).getText();
-            JOptionPane.showMessageDialog(null,ano + "-" + mes + "-" + dia);
+            return TratamentoComparaData();
         }
     
         return I.RecuperarTodos(parametros);

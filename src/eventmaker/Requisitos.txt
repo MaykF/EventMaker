@@ -18,9 +18,9 @@ OK    RF5 – LOGIN Descrição:  O sistema deve permitir que usuários cadastra
  
 OK    RF6 – Configuração de banco de dados Descrição:  Deve ser permitido ao usuário administrador fazer a configuração da localização do banco de dados.  Versão: 1.0 
  
-    RF7 – Consulta de inscrição por evento 
+OK    RF7 – Consulta de inscrição por evento 
         Descrição:  O sistema permitir filtrar as inscrições por evento, data de inscrição e participante. Versão: 1.0 
-    !NAO CONSEGUI CONSULTAR POR DATA, O RESTO OK    
+    
 
     RF8 – Credenciamento 
         Descrição:  O sistema deva realizar o credenciamento de uma pessoa em um evento. 
