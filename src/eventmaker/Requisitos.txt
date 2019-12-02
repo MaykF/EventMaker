@@ -65,7 +65,7 @@ OK    BR6) O sistema deve respeitar a capacidade de cada evento e bloquear as in
 5 
 5. Regras de interface (Interface Rules) 
 5.1. Regras de Interface 
-    BR1) Na tela de gestão de eventos os campos de data/hora de início e término devem ser obrigatórios. 
+OK    BR1) Na tela de gestão de eventos os campos de data/hora de início e término devem ser obrigatórios. 
     BR2) O campo CPF e nome devem ser obrigatório na interface de gestão de pessoas. 
     BR3) A interface de inscrição deve permitir fazer consultas por: Evento, nome do participante, CPF do participante, Matrícula do participante. 
     BR4) A interface de credenciamento deve fazer a consulta da inscrição do participante por nome do participante ou CPF do participante ou matrícula do participante, dando ao usuário a possibilidade de escolha. 

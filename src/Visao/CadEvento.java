@@ -125,8 +125,8 @@ public class CadEvento extends javax.swing.JFrame {
         Cap.setEditable(edt);
         Local.setEditable(edt);
         Desc.setEditable(edt);
-        HoraInicio.setEnabled(false);
-        HoraFim.setEnabled(false);
+        HoraInicio.setEnabled(edt);
+        HoraFim.setEnabled(edt);
         
         if(!ControllerUsuario.ValidaAdm(UsuarioAtual)){     // SE NAO FOR ADMINISTRADOR BLOQUEARA OS BOTOES PARA NAO PERMITIR ALTERAR
             Novo.setEnabled(false);
@@ -137,36 +137,53 @@ public class CadEvento extends javax.swing.JFrame {
         }
     }
     private void Salvar(){
-        if (atualizando) {
-            JSONObject json = new JSONObject();
-            json.put("nome", NomeEvento.getText());
-            json.put("inicio", ((JTextField) this.DataInicio.getDateEditor().getUiComponent()).getText());
-            json.put("termino", ((JTextField) this.DataFim.getDateEditor().getUiComponent()).getText());
-            json.put("capacidade", Cap.getText());
-            json.put("local", Local.getText());
-            json.put("descricao", Desc.getText());
-            json.put("horainicio", HoraInicio.getText());
-            json.put("horafim", HoraFim.getText());
-            evento.Salvar(json);
-        } else {
-            JSONObject json = new JSONObject();
-            json.put("id", 0);
-            json.put("nome", NomeEvento.getText());
-            json.put("inicio", ((JTextField) this.DataInicio.getDateEditor().getUiComponent()).getText());
-            json.put("termino", ((JTextField) this.DataFim.getDateEditor().getUiComponent()).getText());
-            json.put("capacidade", Cap.getText());
-            json.put("local", Local.getText());
-            json.put("descricao", Desc.getText());
-            json.put("horainicio", HoraInicio.getText());
-            json.put("horafim", HoraFim.getText());
-            evento.Salvar(json);
-        }
-        atualizando = false;
-        LimparTela();
-        Editar(false);
-        this.visaoController.trocar(true);
-        this.preencher();
+        //JOptionPane.showMessageDialog(null, "|" + HoraInicio.getText() + "|");
+        if(DataInicio.getDate() == null){
+            JOptionPane.showMessageDialog(null, "A data inicio precisa ser preenchida");
+        }else if(DataFim.getDate() == null){
+            JOptionPane.showMessageDialog(null, "A data fim precisa ser preenchida");
+        }else if(HoraInicio.getText().equals("  :  ")){
+            JOptionPane.showMessageDialog(null, "A Hora inicio precisa ser preenchida");
+        }else if(HoraFim.getText().equals("  :  ")){
+            JOptionPane.showMessageDialog(null, "A Hora fim precisa ser preenchida");
+        }else{
         
+            if (atualizando) {
+                JSONObject json = new JSONObject();
+                json.put("nome", NomeEvento.getText());
+                json.put("inicio", ((JTextField) this.DataInicio.getDateEditor().getUiComponent()).getText());
+                json.put("termino", ((JTextField) this.DataFim.getDateEditor().getUiComponent()).getText());
+                json.put("capacidade", Cap.getText());
+                json.put("local", Local.getText());
+                json.put("descricao", Desc.getText());
+                json.put("horainicio", HoraInicio.getText());
+                json.put("horafim", HoraFim.getText());
+                evento.Salvar(json);
+                atualizando = false;
+                LimparTela();
+                Editar(false);
+                this.visaoController.trocar(true);
+                this.preencher();
+            } else {
+                JSONObject json = new JSONObject();
+                json.put("id", 0);
+                json.put("nome", NomeEvento.getText());
+                json.put("inicio", ((JTextField) this.DataInicio.getDateEditor().getUiComponent()).getText());
+                json.put("termino", ((JTextField) this.DataFim.getDateEditor().getUiComponent()).getText());
+                json.put("capacidade", Cap.getText());
+                json.put("local", Local.getText());
+                json.put("descricao", Desc.getText());
+                json.put("horainicio", HoraInicio.getText());
+                json.put("horafim", HoraFim.getText());
+                evento.Salvar(json);
+                atualizando = false;
+                LimparTela();
+                Editar(false);
+                this.visaoController.trocar(true);
+                this.preencher();
+            }
+        
+        }
     }
 
     @SuppressWarnings("unchecked")
