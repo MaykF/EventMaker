@@ -115,18 +115,29 @@ public class TelaInscricao extends javax.swing.JFrame {
     }
     
     private void Salvar(){
-    
-        JSONObject json = new JSONObject();
-        json.put("codpessoa", jTextFieldCodPessoa.getText());
-        json.put("codevento", jTextFieldCodEvento.getText());
-        json.put("usuario", jTextFieldUsuarioInscricao.getText());
-        json.put("data", ((JTextField) this.DataInscricao.getDateEditor().getUiComponent()).getText());
         
+        JSONObject json = new JSONObject();
         ControllerInscricao C = new ControllerInscricao();
-        if(C.SalvaInscricao(json)){
-            JOptionPane.showMessageDialog(null, "Inscrição realizada com sucesso");
-        }
+        
+        if(atualizando){
+            json.put("id", jTextFieldCodInscricao.getText());
+            json.put("codpessoa", jTextFieldCodPessoa.getText());
+            json.put("codevento", jTextFieldCodEvento.getText());
+            json.put("usuario", jTextFieldUsuarioInscricao.getText());
+            json.put("data", ((JTextField) this.DataInscricao.getDateEditor().getUiComponent()).getText());
+            C.SalvaInscricao(json);
             
+        }else{
+
+            json.put("codpessoa", jTextFieldCodPessoa.getText());
+            json.put("codevento", jTextFieldCodEvento.getText());
+            json.put("usuario", jTextFieldUsuarioInscricao.getText());
+            json.put("data", ((JTextField) this.DataInscricao.getDateEditor().getUiComponent()).getText());
+
+            if(C.SalvaInscricao(json)){
+                JOptionPane.showMessageDialog(null, "Inscrição realizada com sucesso");
+            }
+        }
             
         this.LimparTela();
     
@@ -137,17 +148,21 @@ public class TelaInscricao extends javax.swing.JFrame {
         ControllerPessoa P = new ControllerPessoa();
         JSONObject jsonInsc;
                
-        jsonInsc = I.Recuperar(Integer.valueOf(jTextFieldCodInscricao.getText()));
-        if(jsonInsc != null){
-            jTextFieldCodPessoa.setText(String.valueOf(jsonInsc.get("codpessoa")));
-            jTextFieldCodEvento.setText(String.valueOf(jsonInsc.get("codevento")));
-            jTextFieldUsuarioInscricao.setText(String.valueOf(jsonInsc.get("usuario")));
-            DataInscricao.setDate((Date) jsonInsc.get("data"));
-        
-            this.PreenchePessoa();
-            this.PreencheEvento();
-        }else
-            JOptionPane.showMessageDialog(null, "Codigo nao encontrado");
+        if(jTextFieldCodInscricao.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Nao foi informado o codigo da inscrição");
+        }else{
+            jsonInsc = I.Recuperar(Integer.valueOf(jTextFieldCodInscricao.getText()));
+            if(jsonInsc != null){
+                jTextFieldCodPessoa.setText(String.valueOf(jsonInsc.get("codpessoa")));
+                jTextFieldCodEvento.setText(String.valueOf(jsonInsc.get("codevento")));
+                jTextFieldUsuarioInscricao.setText(String.valueOf(jsonInsc.get("usuario")));
+                DataInscricao.setDate((Date) jsonInsc.get("data"));
+
+                this.PreenchePessoa();
+                this.PreencheEvento();
+            }else
+                JOptionPane.showMessageDialog(null, "Codigo nao encontrado");
+        }
     }
     
     private void PreenchePessoa(){
@@ -427,6 +442,7 @@ public class TelaInscricao extends javax.swing.JFrame {
     }//GEN-LAST:event_NovoActionPerformed
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
+        this.atualizando = false;
         this.Salvar();
     }//GEN-LAST:event_SalvarActionPerformed
 
@@ -445,6 +461,8 @@ public class TelaInscricao extends javax.swing.JFrame {
     }//GEN-LAST:event_ExcluirActionPerformed
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
+        this.ConsultaInscricao();
+        this.atualizando = true;
         
     }//GEN-LAST:event_EditarActionPerformed
 

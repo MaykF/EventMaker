@@ -96,8 +96,8 @@ public class Inscricao extends ObjetoBase implements Serializable{
         jsonfile.put("codpessoa", this.getPessoa().getId());
         jsonfile.put("codevento", this.getEvento().getId());
         jsonfile.put("codusuario", this.getUsuario().getId());
-        jsonfile.put("usuario", jsonfile.get("login") );    // retorna o LOGIN do usuario contido no json file
-        jsonfile.put("data", this.datainscricao);
+        jsonfile.put("usuario", this.getUsuario().getLogin());    // retorna o LOGIN do usuario contido no json file
+        jsonfile.put("data", this.getDatainscricao());
         
         return jsonfile;
     }
