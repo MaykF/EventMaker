@@ -74,6 +74,9 @@ public class CadPessoa extends javax.swing.JFrame {
             this.visaoController.trocar(false);
             JOptionPane.showMessageDialog(rootPane, "CPF inválido!");
             return;
+        }else if(Nome.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Necessário informar o nome da pessoa");
+            return;
         }
         if (atualizando) {
             JSONObject json =  new JSONObject();
