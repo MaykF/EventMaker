@@ -71,7 +71,8 @@ public class CadEvento extends javax.swing.JFrame {
             Cap.setEnabled(false);
             Local.setEnabled(false);
             Desc.setEnabled(false);
-            
+            HoraInicio.setEnabled(false);
+            HoraFim.setEnabled(false);
             Novo.setEnabled(false);
             Salvar.setEnabled(false);
             Excluir.setEnabled(false);
@@ -113,6 +114,8 @@ public class CadEvento extends javax.swing.JFrame {
         Local.setText("");
         DataInicio.setDate(null);
         DataFim.setDate(null);
+        HoraInicio.setText("");
+        HoraFim.setText("");
     }
 
     private void Editar(boolean edt) {
@@ -122,6 +125,9 @@ public class CadEvento extends javax.swing.JFrame {
         Cap.setEditable(edt);
         Local.setEditable(edt);
         Desc.setEditable(edt);
+        HoraInicio.setEnabled(false);
+        HoraFim.setEnabled(false);
+        
         if(!ControllerUsuario.ValidaAdm(UsuarioAtual)){     // SE NAO FOR ADMINISTRADOR BLOQUEARA OS BOTOES PARA NAO PERMITIR ALTERAR
             Novo.setEnabled(false);
             Salvar.setEnabled(false);
@@ -353,7 +359,7 @@ public class CadEvento extends javax.swing.JFrame {
 
         jLabel9.setText("Hora Fim");
 
-        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(102, 102, 255));

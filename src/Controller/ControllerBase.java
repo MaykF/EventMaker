@@ -7,6 +7,7 @@ package Controller;
 
 import Modelo.ObjetoBase;
 import Persistencia.PersistenciaJPA;
+import java.util.ArrayList;
 import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -80,7 +81,6 @@ public abstract class ControllerBase {
     
     public int Count(){
         PersistenciaJPA<ObjetoBase> DAO = new PersistenciaJPA(classeObjetoControle);
-        
         return DAO.Count();       
     }
     
@@ -115,5 +115,13 @@ public abstract class ControllerBase {
         }
         return jsonAux;
     }
-    
+    public String[] select(){
+        PersistenciaJPA<ObjetoBase> DAO = new PersistenciaJPA(classeObjetoControle);
+        ArrayList<ObjetoBase> dados = (ArrayList<ObjetoBase>) DAO.recuperarTodos();
+        String[] retorno = new String[dados.size()];
+        for(int i=0;i<dados.size();i++){
+            retorno[i]=dados.get(i).toString();
+        }
+        return retorno;
+    }
 }
