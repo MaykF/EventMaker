@@ -12,9 +12,13 @@ import java.awt.AWTKeyStroke;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -229,8 +233,17 @@ public class ConsultaInscricao extends javax.swing.JFrame {
             parametros[0][1] = jTextFieldValorConsulta.getText();
         }else if(jComboBoxCampoConsulta.getSelectedIndex() == 2){
             parametros[0][0] = "datainscricao";
-            parametros[0][1] = ((JTextField) this.DataInscricao.getDateEditor().getUiComponent()).getText();
-            JOptionPane.showMessageDialog(null,((JTextField) this.DataInscricao.getDateEditor().getUiComponent()).getText() );
+            int dia,mes,ano;
+            dia = DataInscricao.getDate().getDay();
+            mes = DataInscricao.getDate().getMonth();
+            ano = DataInscricao.getDate().getYear();
+            dia+= 24;
+            mes+= 1;
+            ano+= 1900;
+            parametros[0][1] = String.valueOf("2019-11-30");
+            //DataInicio.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(modelo.getValueAt(jTable1.getSelectedRow(), 2).toString()));
+            //parametros[0][1] = ((JTextField) this.DataInscricao.getDateEditor().getUiComponent()).getText();
+            JOptionPane.showMessageDialog(null,ano + "-" + mes + "-" + dia);
         }
     
         return I.RecuperarTodos(parametros);

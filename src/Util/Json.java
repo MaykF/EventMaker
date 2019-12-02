@@ -101,6 +101,7 @@ public class Json {
         try {
             JFileChooser arquivo = new JFileChooser();
             arquivo.showOpenDialog(arquivo);
+            JOptionPane.showMessageDialog(null, arquivo.getSelectedFile());
             jsonfile = (JSONObject) parser.parse(new FileReader(arquivo.getSelectedFile()));
             
             switch (TipoObjeto) {
