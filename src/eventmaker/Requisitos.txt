@@ -61,7 +61,6 @@ OK    BR6) O sistema deve respeitar a capacidade de cada evento e bloquear as in
     BR7) O sistema não deve permitir a inscrição de uma pessoa em um evento quando a data atual for superior a data de término do evento. 
  
 
- 
 5 
 5. Regras de interface (Interface Rules) 
 5.1. Regras de Interface 
