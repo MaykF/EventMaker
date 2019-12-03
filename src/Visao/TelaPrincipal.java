@@ -1,5 +1,6 @@
 package Visao;
 
+import Controller.ControllerCredenciamento;
 import Controller.ControllerEvento;
 import Controller.ControllerInscricao;
 import Controller.ControllerPessoa;
@@ -44,6 +45,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.PreencheTotalEventos();                // FUNCOES PARA PREENCHEREM OS TOTAIS CADASTRAIS
         this.PreencheTotalInscricoes();
         this.PreencheTotalPessoas();
+        this.PreencheTotalCredenciamentos();
+        this.CalculaPercentualCredenciamento();
     }
 
     @SuppressWarnings("unchecked")
@@ -62,9 +65,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jTextFieldTotalInscrições = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        jTextFieldTotalCredenciadas = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        jTextFieldPercentualCredenciado = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -120,15 +123,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setText("Total de Inscrições");
 
-        jTextField4.setEditable(false);
-        jTextField4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jTextFieldTotalCredenciadas.setEditable(false);
+        jTextFieldTotalCredenciadas.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setText("Total de pessoas credenciadas");
         jLabel6.setAutoscrolls(true);
 
-        jTextField5.setEditable(false);
-        jTextField5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jTextFieldPercentualCredenciado.setEditable(false);
+        jTextFieldPercentualCredenciado.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel7.setText("% de pessoas credenciadas");
@@ -158,13 +161,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel6))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(99, 99, 99)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextFieldTotalCredenciadas, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel7))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(102, 102, 102)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextFieldPercentualCredenciado, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -185,11 +188,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldTotalCredenciadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldPercentualCredenciado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -422,6 +425,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTextFieldTotalInscrições.setText(String.valueOf(I.Count()));
     }
     
+    private void PreencheTotalCredenciamentos(){
+        ControllerCredenciamento C = new ControllerCredenciamento();
+        jTextFieldTotalCredenciadas.setText(String.valueOf(C.Count()));   
+    }
+    
+    private void CalculaPercentualCredenciamento(){
+        ControllerInscricao I = new ControllerInscricao();
+        ControllerCredenciamento C = new ControllerCredenciamento();
+        double inscricoes = I.Count();
+        double credenciamentos = C.Count();
+        jTextFieldPercentualCredenciado.setText(String.valueOf((credenciamentos/inscricoes) * 100));
+    }
+    
     public void changeComponentColors(Component comp) {
         comp.setBackground(Color.gray);
         comp.setForeground(Color.white);
@@ -497,8 +513,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextFieldPercentualCredenciado;
+    private javax.swing.JTextField jTextFieldTotalCredenciadas;
     private javax.swing.JTextField jTextFieldTotalEventos;
     private javax.swing.JTextField jTextFieldTotalInscrições;
     public static javax.swing.JTextField jTextFieldTotalPessoas;
