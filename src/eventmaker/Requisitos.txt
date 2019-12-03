@@ -69,8 +69,8 @@ OK    BR1) Na tela de gestão de eventos os campos de data/hora de início e té
 OK    BR2) O campo CPF e nome devem ser obrigatório na interface de gestão de pessoas. 
 OK    BR3) A interface de inscrição deve permitir fazer consultas por: Evento, nome do participante, CPF do participante, Matrícula do participante. 
 OK    BR4) A interface de credenciamento deve fazer a consulta da inscrição do participante por nome do participante ou CPF do participante ou matrícula do participante, dando ao usuário a possibilidade de escolha. 
-    BR5) Na interface de credenciamento o sistema deve recuperar os dados do participante e apresentá-los na tela em fontes grandes para seja possível a visualização a distância. 
-    BR6) O sistema deve dar alguma sinalização visual clara e eficiente para comunicar que a pessoa de fato está inscrita no evento e que o registro do credenciamento ocorreu com sucesso. 
-    BR7) O sistema deve dar alguma sinalização visual clara e eficiente para comunicar que a pessoa de fato não está inscrita no evento e que o credenciamento não pode ser realizado. 
-    BR8) A interface de credenciamento deve permitir ao usuário realizar o credenciamento usando mouse e teclado. Sendo que pelo teclado deve ser a tecla ENTER. 
-    BR9) Na interface de credenciamento, imediatamente após realizar o credenciamento de uma pessoa, o sistema deve limpar e trazer o foco para o campo de entrada de dados para que o usuário possa efetuar um novo registro de forma rápida. 
+OK    BR5) Na interface de credenciamento o sistema deve recuperar os dados do participante e apresentá-los na tela em fontes grandes para seja possível a visualização a distância. 
+OK    BR6) O sistema deve dar alguma sinalização visual clara e eficiente para comunicar que a pessoa de fato está inscrita no evento e que o registro do credenciamento ocorreu com sucesso. 
+OK    BR7) O sistema deve dar alguma sinalização visual clara e eficiente para comunicar que a pessoa de fato não está inscrita no evento e que o credenciamento não pode ser realizado. 
+OK    BR8) A interface de credenciamento deve permitir ao usuário realizar o credenciamento usando mouse e teclado. Sendo que pelo teclado deve ser a tecla ENTER. 
+OK    BR9) Na interface de credenciamento, imediatamente após realizar o credenciamento de uma pessoa, o sistema deve limpar e trazer o foco para o campo de entrada de dados para que o usuário possa efetuar um novo registro de forma rápida. 
