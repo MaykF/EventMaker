@@ -7,8 +7,10 @@ package Controller;
 
 import Modelo.ObjetoBase;
 import Persistencia.PersistenciaJPA;
+import Util.Util;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -99,6 +101,34 @@ public abstract class ControllerBase {
         }
         return jsonAux;
     }
+    
+    public JSONArray RecuperarPorCodigos(String[][] parametrosCodigos){
+        
+        List<ObjetoBase> dados;
+        //JSONObject jsonretorno = new JSONObject();
+        JSONArray jsonAux = new JSONArray();
+        
+        PersistenciaJPA<ObjetoBase> DAO = new PersistenciaJPA(classeObjetoControle);
+        dados = DAO.recuperarPorCodigos(parametrosCodigos);
+        
+        for(int i = 0; i < dados.size(); i++){
+            //Stringretorno[i] = dados.get(i).toStringVetor();
+            jsonAux.add(dados.get(i).toJSONObject()); // i -> INDICE NUMERO DO REGISTRO RETORNO // objeto -> segundo parametro
+        }
+        return jsonAux;
+    }
+    
+    public List<Integer> RecuperarTodosCodigos(String[][] parametros){      // FUNCAO RETORNA SOMENTE UM VETOR DE CODIGOS COM OS FILTROS APLICADOS
+        
+        List<Integer> dados;
+        //Util.InicializaInt(codretorno);
+        
+        PersistenciaJPA<ObjetoBase> DAO = new PersistenciaJPA(classeObjetoControle);
+        dados = DAO.recuperarTodosCodigos(parametros);
+
+        return dados;
+    }
+        
         
     public JSONArray RecuperarTodosEntre(int codIni, int codFim){
         
@@ -115,6 +145,8 @@ public abstract class ControllerBase {
         }
         return jsonAux;
     }
+    
+    
     public String[] select(){
         PersistenciaJPA<ObjetoBase> DAO = new PersistenciaJPA(classeObjetoControle);
         ArrayList<ObjetoBase> dados = (ArrayList<ObjetoBase>) DAO.recuperarTodos();

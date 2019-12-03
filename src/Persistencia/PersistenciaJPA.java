@@ -45,9 +45,19 @@ public class PersistenciaJPA<T extends ObjetoBase> {
         return (List<T>) FuncoesJPA.Selecionar(classePersistente,parametros);  
     }
     
+    public List<T> recuperarPorCodigos(String[][] parametros){
+        return (List<T>) FuncoesJPA.RecuperarPorCodigos(classePersistente,parametros);  
+    }
+    
+    public List<Integer> recuperarTodosCodigos(String[][] parametros){
+        return (List<Integer>) FuncoesJPA.SelecionarCodigos(classePersistente,parametros);  
+    }
+    
     public List<T> recuperarTodosEntre(int codIni,int codFim){
         return (List<T>) FuncoesJPA.SelecionarEntre(classePersistente,codIni,codFim);  
     }
+
+    
     
     
     public int Count(){

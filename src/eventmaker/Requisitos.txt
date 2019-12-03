@@ -67,7 +67,7 @@ OK    BR6) O sistema deve respeitar a capacidade de cada evento e bloquear as in
 5.1. Regras de Interface 
 OK    BR1) Na tela de gestão de eventos os campos de data/hora de início e término devem ser obrigatórios. 
 OK    BR2) O campo CPF e nome devem ser obrigatório na interface de gestão de pessoas. 
-    BR3) A interface de inscrição deve permitir fazer consultas por: Evento, nome do participante, CPF do participante, Matrícula do participante. 
+OK    BR3) A interface de inscrição deve permitir fazer consultas por: Evento, nome do participante, CPF do participante, Matrícula do participante. 
     BR4) A interface de credenciamento deve fazer a consulta da inscrição do participante por nome do participante ou CPF do participante ou matrícula do participante, dando ao usuário a possibilidade de escolha. 
     BR5) Na interface de credenciamento o sistema deve recuperar os dados do participante e apresentá-los na tela em fontes grandes para seja possível a visualização a distância. 
     BR6) O sistema deve dar alguma sinalização visual clara e eficiente para comunicar que a pessoa de fato está inscrita no evento e que o registro do credenciamento ocorreu com sucesso. 

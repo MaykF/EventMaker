@@ -54,4 +54,13 @@ public class Util {
             return (false);
         }
     }
+    
+    public static int[] InicializaInt(int[] variavel){
+      
+        
+        for(int i = 0; i < variavel.length; i++){
+            variavel[i] = 0;
+        }
+        return variavel;
+    }
 }

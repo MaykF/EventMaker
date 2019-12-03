@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -118,7 +119,7 @@ public class ConsultaInscricao extends javax.swing.JFrame {
             }
         });
 
-        jComboBoxCampoConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Codigo pessoa", "Codigo evento", "Data de inscrição" }));
+        jComboBoxCampoConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Codigo pessoa", "Codigo evento", "Data de inscrição", "Nome do participante", "CPF participante", "Matricula participante" }));
         jComboBoxCampoConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxCampoConsultaActionPerformed(evt);
@@ -203,14 +204,15 @@ public class ConsultaInscricao extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonConsultaActionPerformed
 
     private void jComboBoxCampoConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCampoConsultaActionPerformed
-        if(jComboBoxCampoConsulta.getSelectedIndex() <= 1){
-            DataInscricao.setDate(null);
-            jTextFieldValorConsulta.setEditable(true);
-            DataInscricao.setEnabled(false);
-        }else{
+        if(jComboBoxCampoConsulta.getSelectedIndex() == 2){ // DATA
             jTextFieldValorConsulta.setText("");
             jTextFieldValorConsulta.setEditable(false);
             DataInscricao.setEnabled(true);
+            
+        }else{
+            DataInscricao.setDate(null);
+            jTextFieldValorConsulta.setEditable(true);
+            DataInscricao.setEnabled(false);
         }
     }//GEN-LAST:event_jComboBoxCampoConsultaActionPerformed
 
@@ -237,11 +239,13 @@ public class ConsultaInscricao extends javax.swing.JFrame {
             dia = DataInscricao.getDate().getDate();
             mes = DataInscricao.getDate().getMonth() +1;
             ano = DataInscricao.getDate().getYear() +1900;
-            String aux = ano + "-" + mes + "-" + dia;
+            String aux = String.valueOf(ano + "-" + mes + "-" + dia);
                        
             for(int i =0; i < jsonarraytemp.size(); i++){
                 jsonfile = (JSONObject) jsonarraytemp.get(i);
-                if(!aux.equals(String.valueOf(jsonfile.get("data")))){
+                
+                if(!(aux.equals((jsonfile.get("data").toString())))){
+                    //JOptionPane.showMessageDialog(null, jsonarraytemp.size() + aux + "  " + String.valueOf(jsonfile.get("data")));
                     jsonarraytemp.remove(i);
                 }
             }       
@@ -249,8 +253,30 @@ public class ConsultaInscricao extends javax.swing.JFrame {
         return jsonarraytemp;
     }
     
+    private JSONArray aplicafiltroInscricao(List<Integer> codigosfiltro){
+    
+        ControllerInscricao I = new ControllerInscricao();
+        
+        if(codigosfiltro.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Registro nao encontrado");
+                return null;                                                        // Se nao retornou nada na consulta
+            }
+            
+            String parametros2[][] = new String[codigosfiltro.size()][2];                              // Seta o parametro da coluna que sera consultada chave primaria de pessoas
+            //JOptionPane.showMessageDialog(null, codigosfiltro.get(0));
+            for(int i = 0; i< codigosfiltro.size(); i++){
+                parametros2[i][0] = "pessoa_id";
+                parametros2[i][1] = String.valueOf(codigosfiltro.get(i));
+            }
+        return I.RecuperarPorCodigos(parametros2);
+    }
+    
     private JSONArray parametrosdeconsulta(){  
-        ControllerInscricao I = new ControllerInscricao();  
+        ControllerInscricao I = new ControllerInscricao();
+        ControllerPessoa P = new ControllerPessoa();
+        
+        List<Integer> codigosfiltro;
+        JSONArray arrayRetorno = new JSONArray();
  
         String parametros[][] = new String[1][2];   // PRIMEIRO PARAMETRO NOME DA TABELA NO BANCO, SEGUNDO VALOR PARA CONSULTA
          
@@ -263,6 +289,24 @@ public class ConsultaInscricao extends javax.swing.JFrame {
             parametros[0][1] = jTextFieldValorConsulta.getText();
         }else if(jComboBoxCampoConsulta.getSelectedIndex() == 2){
             return TratamentoComparaData();
+        }else if(jComboBoxCampoConsulta.getSelectedIndex() == 3){
+            parametros[0][0] = "nome";
+            parametros[0][1] = "'" + jTextFieldValorConsulta.getText() + "'";   // Consulta as pessoas baseado nos filtros informados
+            codigosfiltro = P.RecuperarTodosCodigos(parametros);                // Obtem as pessoas com o filtro solicitado
+            
+            return this.aplicafiltroInscricao(codigosfiltro);
+        }else if(jComboBoxCampoConsulta.getSelectedIndex() == 4){
+            parametros[0][0] = "CPF";
+            parametros[0][1] = "'" + jTextFieldValorConsulta.getText() + "'"; 
+            codigosfiltro = P.RecuperarTodosCodigos(parametros);
+            
+            return this.aplicafiltroInscricao(codigosfiltro);
+        }else if(jComboBoxCampoConsulta.getSelectedIndex() == 5){
+            parametros[0][0] = "numMatricula";
+            parametros[0][1] = "'" + jTextFieldValorConsulta.getText() + "'"; 
+            codigosfiltro = P.RecuperarTodosCodigos(parametros);
+            
+            return this.aplicafiltroInscricao(codigosfiltro);
         }
     
         return I.RecuperarTodos(parametros);
@@ -277,21 +321,24 @@ public class ConsultaInscricao extends javax.swing.JFrame {
         while (jTableInscricoes.getModel().getRowCount() > 0) {             // REMOVE POSSIVEIS ITENS NA TABELA
             modelo.removeRow(0);
         }
-        System.out.println(dados.size());
-        Iterator i = dados.iterator();
+        //System.out.println(dados.size());
+        
+        if(dados != null){
+            Iterator i = dados.iterator();
 
-        while (i.hasNext()) {
-            JSONObject jsonObj = (JSONObject) i.next();
-            Object[] tableData = new Object[]{jsonObj.get("id"), jsonObj.get("data").toString(), jsonObj.get("codevento"),
-                jsonObj.get("codpessoa"), jsonObj.get("codusuario")};
-            System.out.println(Arrays.toString(tableData));
-            if (!tableData[0].equals("-1")) {
-                modelo.addRow(tableData);
+            while (i.hasNext()) {
+                JSONObject jsonObj = (JSONObject) i.next();
+                Object[] tableData = new Object[]{jsonObj.get("id"), jsonObj.get("data").toString(), jsonObj.get("codevento"),
+                    jsonObj.get("codpessoa"), jsonObj.get("codusuario")};
+                System.out.println(Arrays.toString(tableData));
+                if (!tableData[0].equals("-1")) {
+                    modelo.addRow(tableData);
+                }
             }
-        }
-        jTableInscricoes.setModel(modelo);
-        if (jTableInscricoes.getRowCount() > 0) {
-            jTableInscricoes.setRowSelectionInterval(0, 0);
+            jTableInscricoes.setModel(modelo);
+            if (jTableInscricoes.getRowCount() > 0) {
+                jTableInscricoes.setRowSelectionInterval(0, 0);
+            }
         }
     
     }

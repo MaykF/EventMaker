@@ -2,6 +2,7 @@ package Persistencia;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 
 public class FuncoesJPA {
     
@@ -53,7 +54,14 @@ public class FuncoesJPA {
     //  JOptionPane.showMessageDialog(null, sJPQL);
         Query minhaQuery = trans.createQuery(sJPQL);
         return minhaQuery.getResultList();        
-    }      
+    }       
+    
+    public static List<Integer> SelecionarCodigos(Class classe, String whereJPQL){
+        EntityManager trans = FabricaJPA.getManager();
+	String sJPQL = "select u.id from " + classe.getName() + " u " + whereJPQL;
+        Query minhaQuery = trans.createQuery(sJPQL);
+        return minhaQuery.getResultList();        
+    }
     
     public static List<?> Selecionar(Class classe, String[][] parametros){       
 	String sWhere = "";
@@ -69,6 +77,41 @@ public class FuncoesJPA {
                 
                 sWhere = sWhere + campo + " = " + valor;                
             }
+        }
+        return Selecionar(classe, sWhere);
+    }
+    
+    public static List<Integer> SelecionarCodigos(Class classe, String[][] parametros){       
+	String sWhere = "";
+        if (parametros.length > 0) {            
+            for (int i = 0; i < parametros.length; i++) {                
+                if (i == 0)
+                    sWhere = sWhere + " where ";
+                else
+                    sWhere = sWhere + " and ";
+            
+                String campo = parametros[i][0];
+                String valor = parametros[i][1];
+                
+                sWhere = sWhere + campo + " = " + valor;                
+            }
+        }
+        return SelecionarCodigos(classe, sWhere);
+    }
+    
+    public static List<?> RecuperarPorCodigos(Class classe, String[][] parametros){       
+	String sWhere = "";
+        if (parametros.length > 0) {          
+            for (int i = 0; i < parametros.length; i++) {
+                String campo = parametros[i][0];
+                String valor = parametros[i][1];
+            
+                if (i == 0)
+                    sWhere = sWhere + "where " + campo + " in ( " + valor ;    
+                else
+                    sWhere = sWhere + "," + valor;               
+            }
+            sWhere = sWhere + " )";
         }
         return Selecionar(classe, sWhere);
     }
