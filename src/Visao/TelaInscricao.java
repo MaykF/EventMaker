@@ -12,6 +12,7 @@ import java.awt.AWTKeyStroke;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.time.Instant;
 import java.util.Date;
 import java.util.HashSet;
 import javax.swing.JOptionPane;
@@ -114,33 +115,49 @@ public class TelaInscricao extends javax.swing.JFrame {
 
     }
     
+    private boolean VerificaDataInscricao(){
+    
+        ControllerEvento E = new ControllerEvento();
+        JSONObject jsonfile = new JSONObject();
+        jsonfile = E.Recuperar(Integer.valueOf(jTextFieldCodEvento.getText()));
+        Date termino = (Date) jsonfile.get("termino");
+        
+        if(Date.from(Instant.now()).after(termino)){
+            JOptionPane.showMessageDialog(null, "O evento ja foi encerrado");
+            return false;
+        }else
+            return true;
+    }
+    
     private void Salvar(){
         
         JSONObject json = new JSONObject();
         ControllerInscricao C = new ControllerInscricao();
         
-        if(atualizando){
-            json.put("id", jTextFieldCodInscricao.getText());
-            json.put("codpessoa", jTextFieldCodPessoa.getText());
-            json.put("codevento", jTextFieldCodEvento.getText());
-            json.put("usuario", jTextFieldUsuarioInscricao.getText());
-            json.put("data", ((JTextField) this.DataInscricao.getDateEditor().getUiComponent()).getText());
-            C.SalvaInscricao(json);
-            
-        }else{
+        if(this.VerificaDataInscricao()){
+        
+            if(atualizando){
+                json.put("id", jTextFieldCodInscricao.getText());
+                json.put("codpessoa", jTextFieldCodPessoa.getText());
+                json.put("codevento", jTextFieldCodEvento.getText());
+                json.put("usuario", jTextFieldUsuarioInscricao.getText());
+                json.put("data", ((JTextField) this.DataInscricao.getDateEditor().getUiComponent()).getText());
+                C.SalvaInscricao(json);
 
-            json.put("codpessoa", jTextFieldCodPessoa.getText());
-            json.put("codevento", jTextFieldCodEvento.getText());
-            json.put("usuario", jTextFieldUsuarioInscricao.getText());
-            json.put("data", ((JTextField) this.DataInscricao.getDateEditor().getUiComponent()).getText());
+            }else{
 
-            if(C.SalvaInscricao(json)){
-                JOptionPane.showMessageDialog(null, "Inscrição realizada com sucesso");
+                json.put("codpessoa", jTextFieldCodPessoa.getText());
+                json.put("codevento", jTextFieldCodEvento.getText());
+                json.put("usuario", jTextFieldUsuarioInscricao.getText());
+                json.put("data", ((JTextField) this.DataInscricao.getDateEditor().getUiComponent()).getText());
+
+                if(C.SalvaInscricao(json)){
+                    JOptionPane.showMessageDialog(null, "Inscrição realizada com sucesso");
+                }
             }
-        }
-            
+        }    
         this.LimparTela();
-    
+        
     }
     
     private void ConsultaInscricao(){
