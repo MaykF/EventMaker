@@ -59,4 +59,9 @@ public class ControllerInscricao extends ControllerBase{
         }
     }
     
+    public Inscricao ConsultaInscricao(String codigo){
+        PersistenciaJPA<ObjetoBase> DAO = new PersistenciaJPA(classeObjetoControle);
+        return (Inscricao) DAO.recuperar(Integer.valueOf(codigo));
+    }
+    
 }

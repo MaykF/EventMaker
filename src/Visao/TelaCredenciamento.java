@@ -9,7 +9,9 @@ import Controller.ControllerCredenciamento;
 import Controller.ControllerEvento;
 import Controller.ControllerInscricao;
 import Controller.ControllerPessoa;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
@@ -335,15 +337,20 @@ public class TelaCredenciamento extends javax.swing.JFrame {
         return (String) E.Recuperar(evento).get("descricao");
     }
     
+    private void LimpaTabela(){
+        DefaultTableModel modelo = (DefaultTableModel) jTableInscricoes.getModel();
+        while (jTableInscricoes.getModel().getRowCount() > 0) {             // REMOVE POSSIVEIS ITENS NA TABELA
+            modelo.removeRow(0);
+        }
+    }
+    
     private void buscarInscricoes(){
                        
         JSONArray dados = this.parametrosdeconsulta();    // CHAMA A FUNÇÃO PARA VERIFICAR OS PARAMETROS ESCOLHIDOS
         
         //JOptionPane.showMessageDialog(null, dados);
         DefaultTableModel modelo = (DefaultTableModel) jTableInscricoes.getModel();
-        while (jTableInscricoes.getModel().getRowCount() > 0) {             // REMOVE POSSIVEIS ITENS NA TABELA
-            modelo.removeRow(0);
-        }
+        this.LimpaTabela();
         //System.out.println(dados.size());
         
         if(dados != null){
@@ -365,6 +372,34 @@ public class TelaCredenciamento extends javax.swing.JFrame {
             }
         }
     
+    }
+    
+    private void RealizaCredenciamento(){
+        ControllerCredenciamento C = new ControllerCredenciamento();
+        JSONObject jsonfile = new JSONObject();
+        DefaultTableModel modelo = (DefaultTableModel) jTableInscricoes.getModel();
+        String[][] parametros = new String[1][2];
+        parametros[0][0] = "inscricao_id";
+        parametros[0][1] = String.valueOf( modelo.getValueAt(jTableInscricoes.getSelectedRow(),0));
+        
+        if(!C.RecuperarTodos(parametros).isEmpty()){
+            JOptionPane.showMessageDialog(null, "O credenciamento para esse evento ja foi realizado");
+        }else{
+        
+            Date data = new Date();
+            SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+
+            jsonfile.put("inscricao", String.valueOf( modelo.getValueAt(jTableInscricoes.getSelectedRow(),0)));
+            jsonfile.put("pessoa", String.valueOf(modelo.getValueAt(jTableInscricoes.getSelectedRow(),3)));
+            //JOptionPane.showMessageDialog(null, modelo.getValueAt(jTableInscricoes.getSelectedRow(),0));
+            jsonfile.put("data", formatador.format(data));
+            jsonfile.put("horaatual", new Date().getHours() + ":" + new Date().getMinutes());
+
+            if(C.Salvar(jsonfile)){
+                JOptionPane.showMessageDialog(null, "Credencimanento realizado com sucesso");
+            }
+        }
+        this.LimpaTabela();
     }
     
     private void jTextFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeActionPerformed
@@ -436,16 +471,7 @@ public class TelaCredenciamento extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        ControllerCredenciamento C = new ControllerCredenciamento();
-        JSONObject jsonfile = new JSONObject();
-        DefaultTableModel modelo = (DefaultTableModel) jTableInscricoes.getModel();
-        
-        jsonfile.put("inscricao", modelo.getValueAt(0,jTableInscricoes.getSelectedRow()));
-        jsonfile.put("pessoa", modelo.getValueAt(3, jTableInscricoes.getSelectedRow()));
-        jsonfile.put("data", new Date().from(Instant.now()));
-        jsonfile.put("horaatual", new Date().getHours() + new Date().getMinutes());
-        
-        C.Salvar(jsonfile);
+        this.RealizaCredenciamento();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

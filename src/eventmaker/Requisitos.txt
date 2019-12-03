@@ -23,12 +23,13 @@ OK    RF7 – Consulta de inscrição por evento
     
 
     RF8 – Credenciamento 
-        Descrição:  O sistema deva realizar o credenciamento de uma pessoa em um evento. 
-        Deve ser registrado a data/hora que o credenciamento ocorreu. 
-        O credenciamento deve poder ser feito através do número do CPF, RG ou nome. 
-        O usuário deve poder configurar o formato por onde o credenciamento será feito. Versão: 1.0 
+    OK    Descrição:  O sistema deva realizar o credenciamento de uma pessoa em um evento. 
+    OK    Deve ser registrado a data/hora que o credenciamento ocorreu. 
+    OK   O credenciamento deve poder ser feito através do número do CPF, RG ou nome. 
+    OK    O usuário deve poder configurar o formato por onde o credenciamento será feito. Versão: 1.0 
  
-    RF9 – Consulta de credenciados Descrição:  O sistema deve permitir a consulta de pessoas credenciadas em um determinado evento e período. Versão: 1.0 
+    RF9 – Consulta de credenciados 
+        Descrição:  O sistema deve permitir a consulta de pessoas credenciadas em um determinado evento e período. Versão: 1.0 
  
     RF10 – Painel de informações Descrição:  O sistema deve apresentar um painel de informações que mostram as seguintes informações: 
     OK    a) Total de eventos cadastrados; 
