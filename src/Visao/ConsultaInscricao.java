@@ -125,6 +125,11 @@ public class ConsultaInscricao extends javax.swing.JFrame {
                 jComboBoxCampoConsultaActionPerformed(evt);
             }
         });
+        jComboBoxCampoConsulta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jComboBoxCampoConsultaKeyPressed(evt);
+            }
+        });
 
         jButtonConsulta.setText("Buscar");
         jButtonConsulta.addActionListener(new java.awt.event.ActionListener() {
@@ -223,6 +228,10 @@ public class ConsultaInscricao extends javax.swing.JFrame {
         this.setVisible(false);
         T.setVisible(true);
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
+
+    private void jComboBoxCampoConsultaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBoxCampoConsultaKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxCampoConsultaKeyPressed
 
     private void Keypress_jDateChoooser() {
         HashSet<AWTKeyStroke> conjForward = new HashSet<AWTKeyStroke>(DataInscricao.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));

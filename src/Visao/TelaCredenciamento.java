@@ -54,6 +54,8 @@ public class TelaCredenciamento extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
         jTextFieldNome = new javax.swing.JTextField();
         jFormattedTextFieldCPF = new javax.swing.JFormattedTextField();
         jFormattedTextFieldRG = new javax.swing.JFormattedTextField();
@@ -78,12 +80,28 @@ public class TelaCredenciamento extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(51, 51, 255));
         jLabel1.setText("Credenciamento");
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton1.setText("?");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Consulta credenciamentos");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(421, 421, 421))
         );
@@ -91,7 +109,10 @@ public class TelaCredenciamento extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jLabel1)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton1)
+                    .addComponent(jLabel7))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -299,6 +320,104 @@ public class TelaCredenciamento extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
+        this.RealizaCredenciamento();
+    }//GEN-LAST:event_jButtonConfirmarActionPerformed
+
+    private void jTableInscricoesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableInscricoesKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            //DefaultTableModel modelo = (DefaultTableModel) jTableInscricoes.getModel();
+            this.RealizaCredenciamento();
+        }
+    }//GEN-LAST:event_jTableInscricoesKeyPressed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButtonPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButtonPesquisarKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            this.buscarInscricoes();
+            DefaultTableModel modelo = (DefaultTableModel) jTableInscricoes.getModel();
+            jTableInscricoes.requestFocus();
+        }
+    }//GEN-LAST:event_jButtonPesquisarKeyPressed
+
+    private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
+        this.buscarInscricoes();
+    }//GEN-LAST:event_jButtonPesquisarActionPerformed
+
+    private void jFormattedTextFieldRGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldRGActionPerformed
+        jTextFieldNome.setEditable(false);
+        jTextFieldNome.setText("");
+        jFormattedTextFieldCPF.setEditable(false);
+        jFormattedTextFieldCPF.setText("");
+    }//GEN-LAST:event_jFormattedTextFieldRGActionPerformed
+
+    private void jFormattedTextFieldRGFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldRGFocusLost
+        jTextFieldNome.setEditable(true);
+        jFormattedTextFieldCPF.setEditable(true);
+        jFormattedTextFieldRG.setEditable(true);
+    }//GEN-LAST:event_jFormattedTextFieldRGFocusLost
+
+    private void jFormattedTextFieldRGFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldRGFocusGained
+        jTextFieldNome.setEditable(false);
+        jTextFieldNome.setText("");
+        jFormattedTextFieldCPF.setEditable(false);
+        jFormattedTextFieldCPF.setText("");
+    }//GEN-LAST:event_jFormattedTextFieldRGFocusGained
+
+    private void jFormattedTextFieldCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCPFActionPerformed
+        jTextFieldNome.setEditable(false);
+        jTextFieldNome.setText("");
+        jFormattedTextFieldRG.setEditable(false);
+        jFormattedTextFieldRG.setText("");
+    }//GEN-LAST:event_jFormattedTextFieldCPFActionPerformed
+
+    private void jFormattedTextFieldCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCPFFocusLost
+        jTextFieldNome.setEditable(true);
+        jFormattedTextFieldCPF.setEditable(true);
+        jFormattedTextFieldRG.setEditable(true);
+    }//GEN-LAST:event_jFormattedTextFieldCPFFocusLost
+
+    private void jFormattedTextFieldCPFFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCPFFocusGained
+        jTextFieldNome.setEditable(false);
+        jTextFieldNome.setText("");
+        jFormattedTextFieldRG.setEditable(false);
+        jFormattedTextFieldRG.setText("");
+    }//GEN-LAST:event_jFormattedTextFieldCPFFocusGained
+
+    private void jTextFieldNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            jButtonPesquisar.requestFocus();
+        }
+    }//GEN-LAST:event_jTextFieldNomeKeyPressed
+
+    private void jTextFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeActionPerformed
+        jFormattedTextFieldCPF.setEditable(false);
+        jFormattedTextFieldCPF.setText("");
+        jFormattedTextFieldRG.setEditable(false);
+        jFormattedTextFieldRG.setText("");
+    }//GEN-LAST:event_jTextFieldNomeActionPerformed
+
+    private void jTextFieldNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNomeFocusLost
+        jTextFieldNome.setEditable(true);
+        jFormattedTextFieldCPF.setEditable(true);
+        jFormattedTextFieldRG.setEditable(true);
+    }//GEN-LAST:event_jTextFieldNomeFocusLost
+
+    private void jTextFieldNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNomeFocusGained
+        jFormattedTextFieldCPF.setEditable(false);
+        jFormattedTextFieldCPF.setText("");
+        jFormattedTextFieldRG.setEditable(false);
+        jFormattedTextFieldRG.setText("");
+    }//GEN-LAST:event_jTextFieldNomeFocusGained
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ConsultaCredenciamento C = new ConsultaCredenciamento();
+        C.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private JSONArray aplicafiltroInscricao(List<Integer> codigosfiltro){
     
         ControllerInscricao I = new ControllerInscricao();
@@ -430,99 +549,6 @@ public class TelaCredenciamento extends javax.swing.JFrame {
         jTextFieldNome.requestFocus();
     }
     
-    private void jTextFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeActionPerformed
-        jFormattedTextFieldCPF.setEditable(false);
-        jFormattedTextFieldCPF.setText("");
-        jFormattedTextFieldRG.setEditable(false);
-        jFormattedTextFieldRG.setText("");
-    }//GEN-LAST:event_jTextFieldNomeActionPerformed
-
-    private void jFormattedTextFieldCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCPFActionPerformed
-        jTextFieldNome.setEditable(false);
-        jTextFieldNome.setText("");
-        jFormattedTextFieldRG.setEditable(false);
-        jFormattedTextFieldRG.setText("");
-    }//GEN-LAST:event_jFormattedTextFieldCPFActionPerformed
-
-    private void jFormattedTextFieldRGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldRGActionPerformed
-        jTextFieldNome.setEditable(false);
-        jTextFieldNome.setText("");
-        jFormattedTextFieldCPF.setEditable(false);
-        jFormattedTextFieldCPF.setText("");
-    }//GEN-LAST:event_jFormattedTextFieldRGActionPerformed
-
-    private void jTextFieldNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNomeFocusGained
-        jFormattedTextFieldCPF.setEditable(false);
-        jFormattedTextFieldCPF.setText("");
-        jFormattedTextFieldRG.setEditable(false);
-        jFormattedTextFieldRG.setText("");
-    }//GEN-LAST:event_jTextFieldNomeFocusGained
-
-    private void jFormattedTextFieldCPFFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCPFFocusGained
-        jTextFieldNome.setEditable(false);
-        jTextFieldNome.setText("");
-        jFormattedTextFieldRG.setEditable(false);
-        jFormattedTextFieldRG.setText("");
-    }//GEN-LAST:event_jFormattedTextFieldCPFFocusGained
-
-    private void jFormattedTextFieldRGFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldRGFocusGained
-        jTextFieldNome.setEditable(false);
-        jTextFieldNome.setText("");
-        jFormattedTextFieldCPF.setEditable(false);
-        jFormattedTextFieldCPF.setText("");
-    }//GEN-LAST:event_jFormattedTextFieldRGFocusGained
-
-    private void jTextFieldNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNomeFocusLost
-        jTextFieldNome.setEditable(true);
-        jFormattedTextFieldCPF.setEditable(true);
-        jFormattedTextFieldRG.setEditable(true);
-    }//GEN-LAST:event_jTextFieldNomeFocusLost
-
-    private void jFormattedTextFieldCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCPFFocusLost
-        jTextFieldNome.setEditable(true);
-        jFormattedTextFieldCPF.setEditable(true);
-        jFormattedTextFieldRG.setEditable(true);
-    }//GEN-LAST:event_jFormattedTextFieldCPFFocusLost
-
-    private void jFormattedTextFieldRGFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldRGFocusLost
-        jTextFieldNome.setEditable(true);
-        jFormattedTextFieldCPF.setEditable(true);
-        jFormattedTextFieldRG.setEditable(true);
-    }//GEN-LAST:event_jFormattedTextFieldRGFocusLost
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
-        this.buscarInscricoes();
-    }//GEN-LAST:event_jButtonPesquisarActionPerformed
-
-    private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
-        this.RealizaCredenciamento();
-    }//GEN-LAST:event_jButtonConfirmarActionPerformed
-
-    private void jTextFieldNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            jButtonPesquisar.requestFocus();
-        }
-    }//GEN-LAST:event_jTextFieldNomeKeyPressed
-
-    private void jButtonPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButtonPesquisarKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            this.buscarInscricoes();
-            DefaultTableModel modelo = (DefaultTableModel) jTableInscricoes.getModel();
-            jTableInscricoes.requestFocus();
-        }
-    }//GEN-LAST:event_jButtonPesquisarKeyPressed
-
-    private void jTableInscricoesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableInscricoesKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            //DefaultTableModel modelo = (DefaultTableModel) jTableInscricoes.getModel();
-            this.RealizaCredenciamento();
-        }        
-    }//GEN-LAST:event_jTableInscricoesKeyPressed
-
     /**
      * @param args the command line arguments
      */
@@ -559,6 +585,7 @@ public class TelaCredenciamento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JButton jButtonPesquisar;
@@ -570,6 +597,7 @@ public class TelaCredenciamento extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
