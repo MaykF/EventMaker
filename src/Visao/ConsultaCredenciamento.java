@@ -22,6 +22,8 @@ import org.json.simple.JSONObject;
  */
 public class ConsultaCredenciamento extends javax.swing.JFrame {
 
+    
+    private JSONObject jsonRetorno;
     /**
      * Creates new form ConsultaCredenciamento
      */
@@ -204,7 +206,7 @@ public class ConsultaCredenciamento extends javax.swing.JFrame {
         ControllerPessoa P = new ControllerPessoa();
         ControllerCredenciamento C = new ControllerCredenciamento();
         
-        List<Integer> codigosfiltro;
+        //List<Integer> codigosfiltro;
         JSONArray arrayRetorno = new JSONArray();
  
         String parametros[][] = new String[1][2];   // PRIMEIRO PARAMETRO NOME DA TABELA NO BANCO, SEGUNDO VALOR PARA CONSULTA
@@ -213,9 +215,12 @@ public class ConsultaCredenciamento extends javax.swing.JFrame {
         if(jComboBoxCampoConsulta.getSelectedIndex() == 0){
             parametros[0][0] = "pessoa_id";
             parametros[0][1] = jTextFieldValorConsulta.getText();
+
+            jsonRetorno = P.Recuperar(Integer.valueOf(jTextFieldValorConsulta.getText()));
         }else if(jComboBoxCampoConsulta.getSelectedIndex() == 1){
             parametros[0][0] = "inscricao_id";
             parametros[0][1] = jTextFieldValorConsulta.getText();
+            
         }else if(jComboBoxCampoConsulta.getSelectedIndex() == 2){
             return TratamentoComparaData();
         }
@@ -239,8 +244,8 @@ public class ConsultaCredenciamento extends javax.swing.JFrame {
 
             while (i.hasNext()) {
                 JSONObject jsonObj = (JSONObject) i.next();
-                Object[] tableData = new Object[]{jsonObj.get("id"), jsonObj.get("id").toString(), jsonObj.get("descricao"),
-                    jsonObj.get("id"), jsonObj.get("nome")};
+                Object[] tableData = new Object[]{jsonObj.get("id"), jsonObj.get("id"), jsonObj.get("descricao"),
+                    jsonObj.get("pessoa"), jsonRetorno.get("nome"), jsonObj.get("data").toString()};
                 System.out.println(Arrays.toString(tableData));
                 if (!tableData[0].equals("-1")) {
                     modelo.addRow(tableData);
