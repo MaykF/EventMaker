@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -15,6 +17,7 @@ import javax.swing.JLabel;
 import org.json.simple.JSONObject;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Credenciamento extends ObjetoBase {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataC;

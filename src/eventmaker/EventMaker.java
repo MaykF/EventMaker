@@ -39,7 +39,7 @@ public class EventMaker {
         jsonfile.put("isadmin", true);
         ControllerUsuario C = new ControllerUsuario();
         C.Salvar(jsonfile);
-        /*
+        
         JSONObject jsonfile = new JSONObject();
         jsonfile.put("nome", "Rodrigo");
         jsonfile.put("login", "dahora");
@@ -48,7 +48,7 @@ public class EventMaker {
         
         ControllerUsuario C = new ControllerUsuario();
         C.Salvar(jsonfile);*/
-        
+       
         TelaLogin telalogin = new TelaLogin();
         telalogin.setVisible(true);
         

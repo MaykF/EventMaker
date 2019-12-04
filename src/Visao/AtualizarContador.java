@@ -11,7 +11,11 @@ public class AtualizarContador extends Thread{
         try {  
             while (true) {
                 TelaPrincipal.PreencheTotalPessoas();
-                Thread.sleep(2000);
+                TelaPrincipal.PreencheTotalEventos();
+                TelaPrincipal.PreencheTotalInscricoes();
+                TelaPrincipal.PreencheTotalCredenciamentos();
+                TelaPrincipal.CalculaPercentualCredenciamento();
+                Thread.sleep(2500);
             }  
         } catch (InterruptedException ex) {  
             System.out.println("Problema na atualização da data/hora");  

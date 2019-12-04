@@ -1,10 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package Visao;
 
+package Visao;
 import Util.Xml;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -19,10 +14,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-/**
- *
- * @author Maycon
- */
 public class TelaConfiguracao extends javax.swing.JFrame {
 
     /**
@@ -237,7 +228,8 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
         try {
-       
+            
+            this.dispose();
             Xml.GeraArquivoConexao(jTextFieldServidor.getText(),Integer.valueOf(jTextFieldPorta.getText()), jTextFieldNomeBD.getText(), jTextFieldUsuarioBD.getText(), jTextFieldSenhaBD.getText());
         } catch (TransformerConfigurationException ex) {
             Logger.getLogger(TelaConfiguracao.class.getName()).log(Level.SEVERE, null, ex);
@@ -269,10 +261,6 @@ public class TelaConfiguracao extends javax.swing.JFrame {
   
         
     }
-    
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

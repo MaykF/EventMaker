@@ -148,11 +148,34 @@ public class CadUsuario extends javax.swing.JFrame {
 
         jLabel2.setText("Nome");
 
+        NomeUsu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                NomeUsuKeyPressed(evt);
+            }
+        });
+
         jLabel3.setText("Login");
+
+        Login.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                LoginKeyPressed(evt);
+            }
+        });
 
         jLabel4.setText("Senha");
 
+        Senha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                SenhaKeyPressed(evt);
+            }
+        });
+
         Adm.setText("Administrador");
+        Adm.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                AdmKeyPressed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -188,6 +211,11 @@ public class CadUsuario extends javax.swing.JFrame {
         Salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SalvarActionPerformed(evt);
+            }
+        });
+        Salvar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                SalvarKeyPressed(evt);
             }
         });
 
@@ -376,9 +404,36 @@ public class CadUsuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ExcluirActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void NomeUsuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NomeUsuKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            Login.requestFocus();
+        }
+    }//GEN-LAST:event_NomeUsuKeyPressed
+
+    private void LoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_LoginKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            Senha.requestFocus();
+        }
+    }//GEN-LAST:event_LoginKeyPressed
+
+    private void SenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SenhaKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            Adm.requestFocus();
+        }
+    }//GEN-LAST:event_SenhaKeyPressed
+
+    private void AdmKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AdmKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            Salvar.requestFocus();
+        }
+    }//GEN-LAST:event_AdmKeyPressed
+
+    private void SalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SalvarKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            Salvar.requestFocus();
+        }
+    }//GEN-LAST:event_SalvarKeyPressed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

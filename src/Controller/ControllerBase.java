@@ -48,8 +48,9 @@ public abstract class ControllerBase {
         
         if(objetoControle != null)                      // TRATAMENTO NECESSARIO PARA NAO APRESENTAR ERRO NO CODIGO
             return objetoControle.toJSONObject();
-        else 
+        else{
             return null;
+        }     
     }
     
     public JSONArray RecuperarTodos(){

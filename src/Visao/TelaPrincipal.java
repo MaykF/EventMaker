@@ -410,7 +410,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }
 
-    private void PreencheTotalEventos(){                   // FUNÇÕES PARA PREENCHEREM O TOTAL DE CADASTROS NO FIELDS RESPECTIVOS
+    public static void PreencheTotalEventos(){                   // FUNÇÕES PARA PREENCHEREM O TOTAL DE CADASTROS NO FIELDS RESPECTIVOS
         ControllerEvento E = new ControllerEvento();
         jTextFieldTotalEventos.setText(String.valueOf(E.Count()));    
     }
@@ -420,22 +420,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTextFieldTotalPessoas.setText(String.valueOf(P.Count()));
     }
     
-    public void PreencheTotalInscricoes(){
+    public static void PreencheTotalInscricoes(){
         ControllerInscricao I = new ControllerInscricao();
         jTextFieldTotalInscrições.setText(String.valueOf(I.Count()));
     }
     
-    private void PreencheTotalCredenciamentos(){
+    public static void PreencheTotalCredenciamentos(){
         ControllerCredenciamento C = new ControllerCredenciamento();
         jTextFieldTotalCredenciadas.setText(String.valueOf(C.Count()));   
     }
     
-    private void CalculaPercentualCredenciamento(){
+    public static void CalculaPercentualCredenciamento(){
         ControllerInscricao I = new ControllerInscricao();
         ControllerCredenciamento C = new ControllerCredenciamento();
         double inscricoes = I.Count();
         double credenciamentos = C.Count();
-        jTextFieldPercentualCredenciado.setText(String.valueOf((credenciamentos/inscricoes) * 100));
+        if ((credenciamentos/inscricoes) * 100 != 0) {
+            jTextFieldPercentualCredenciado.setText("0");
+        }else{
+            jTextFieldPercentualCredenciado.setText(String.valueOf((credenciamentos/inscricoes) * 100));
+        }
     }
     
     public void changeComponentColors(Component comp) {
@@ -513,10 +517,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextFieldPercentualCredenciado;
-    private javax.swing.JTextField jTextFieldTotalCredenciadas;
-    private javax.swing.JTextField jTextFieldTotalEventos;
-    private javax.swing.JTextField jTextFieldTotalInscrições;
+    public static javax.swing.JTextField jTextFieldPercentualCredenciado;
+    public static javax.swing.JTextField jTextFieldTotalCredenciadas;
+    public static javax.swing.JTextField jTextFieldTotalEventos;
+    public static javax.swing.JTextField jTextFieldTotalInscrições;
     public static javax.swing.JTextField jTextFieldTotalPessoas;
     // End of variables declaration//GEN-END:variables
 }
