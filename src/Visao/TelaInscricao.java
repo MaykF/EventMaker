@@ -185,18 +185,25 @@ public class TelaInscricao extends javax.swing.JFrame {
     private void PreenchePessoa(){
         ControllerPessoa P = new ControllerPessoa();
         JSONObject jsonPessoa;
+        if (P.Recuperar(Integer.valueOf(jTextFieldCodPessoa.getText())) != null) {
+            jsonPessoa = P.Recuperar(Integer.valueOf(jTextFieldCodPessoa.getText()));
+            jTextFieldNomePessoa.setText((String) jsonPessoa.get("nome"));
+        }else{
+            JOptionPane.showMessageDialog(null, "Codigo da pessoa não encontrado");
+            this.jTextFieldCodPessoa.requestFocus(true);
+            jTextFieldCodPessoa.setText(""); 
+        }
         
-        jsonPessoa = P.Recuperar(Integer.valueOf(jTextFieldCodPessoa.getText()));
-        jTextFieldNomePessoa.setText((String) jsonPessoa.get("nome"));
     }
     
     private void PreencheEvento(){
         ControllerEvento E = new ControllerEvento();
         JSONObject jsonEvento;
-        
-        jsonEvento = E.Recuperar(Integer.valueOf(jTextFieldCodEvento.getText()));
-        jTextFieldNomeEvento.setText((String) jsonEvento.get("nome"));
-    
+        if (E.Recuperar(Integer.valueOf(jTextFieldCodEvento.getText())) != null) {
+            jsonEvento = E.Recuperar(Integer.valueOf(jTextFieldCodEvento.getText()));
+            jTextFieldNomeEvento.setText((String) jsonEvento.get("nome"));
+        }else
+            JOptionPane.showMessageDialog(null, "Codigo do evento não encontrado");
     }
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -484,7 +491,9 @@ public class TelaInscricao extends javax.swing.JFrame {
     }//GEN-LAST:event_EditarActionPerformed
 
     private void DataInscricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DataInscricaoKeyPressed
-
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            Salvar.requestFocus();
+        }
     }//GEN-LAST:event_DataInscricaoKeyPressed
 
     private void jTextFieldCodInscricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodInscricaoKeyPressed

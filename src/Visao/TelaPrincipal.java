@@ -435,7 +435,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ControllerCredenciamento C = new ControllerCredenciamento();
         double inscricoes = I.Count();
         double credenciamentos = C.Count();
-        if ((credenciamentos/inscricoes) * 100 != 0) {
+        if ((credenciamentos/inscricoes) * 100 == 0) {
             jTextFieldPercentualCredenciado.setText("0");
         }else{
             jTextFieldPercentualCredenciado.setText(String.valueOf((credenciamentos/inscricoes) * 100));
